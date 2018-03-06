@@ -104,8 +104,8 @@
         <div class="form-item">
             <label class="item-label">产品图标</label>
             <input type="file" name="imgurl" class="display">
-            <input type="button" class="files"  value="请选择文件" style="margin-top: 15px">
-            <a href="{$data.imgurl}" class="nonea"><img src="{$data.imgurl}" alt="" class="tb"></a>
+            <input type="button" class="files file__icon"  value="请选择文件" style="margin-top: 15px">
+            <a href="{$data.imgurl}" class="nonea"><img src="{$data.imgurl}" name="imgurl_img" alt="" class="tb"></a>
         </div>
 
         <div class="form-item">
@@ -137,6 +137,13 @@
             <div class="controls">
             <input type="text" class="text input-large" name="address" value="{:base64_decode($data['address'])}">
             </div>
+        </div>
+
+        <div class="form-item">
+            <label class="item-label">钱包地址二维码</label>
+            <input type="file" name="img_address" class="display">
+            <input type="button" class="files files_address"  value="请选择文件" style="margin-top: 15px">
+            <a href="{$data.img_address}" class="nonea"><img src="{$data.img_address}" name="address_img" alt="" class="tb"></a>
         </div>
 
         <div class="form-item">

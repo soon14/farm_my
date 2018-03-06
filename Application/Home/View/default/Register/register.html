@@ -122,10 +122,23 @@
                             <div class="form-group" <neq name="value" value="">style="display: none"</neq>>
                                 <label for="yaoqing_code_num" class="control-label">邀请码:</label>
                                 <div class="input_width_9">
-                                    <input value="{$value}"  class="form-control input-lg" name="yaoqing_code_num" id="yaoqing_code_num" placeholder="非必填">
+                                    <input value="{$value}"  class="form-control input-lg" name="yaoqing_code_num" id="yaoqing_code_num" placeholder="必填">
                                     <span class="tips"></span>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label for="yaoqing_code_email" class="control-label">区域:</label>
+                                <div class="input_width_9">
+                                    <select name="area_id" class="form-control input-lg">
+                                        <foreach name="area" item="v">
+                                            <option value="{$v.id}">{$v.name}</option>
+                                        </foreach>
+                                    </select>
+                                    <span class="tips"></span>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <div class=" input_width_9">
                                     <div class="checkbox">
@@ -194,10 +207,23 @@
                             <div class="form-group">
                                 <label for="yaoqing_code_email" class="control-label">邀请码:</label>
                                 <div class="input_width_9">
-                                    <input type="text" class="form-control input-lg" name="yaoqing_code_email"  id="yaoqing_code_email" placeholder="非必填">
+                                    <input type="text" class="form-control input-lg" name="yaoqing_code_email"  id="yaoqing_code_email" placeholder="必填">
                                     <span class="tips"></span>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label for="yaoqing_code_email" class="control-label">区域:</label>
+                                <div class="input_width_9">
+                                    <select name="area_id" class="form-control input-lg">
+                                        <foreach name="area" item="v">
+                                            <option value="{$v.id}">{$v.name}</option>
+                                        </foreach>
+                                    </select>
+                                    <span class="tips"></span>
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <div class="input_width_9">
                                     <div class="checkbox">

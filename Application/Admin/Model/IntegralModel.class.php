@@ -34,12 +34,13 @@ class IntegralModel extends Model
      */
 
     public function getDataPage($where,$page,$number_this=0){
+        $page+=1;
 
         $number_this = $number_this == 0 ? C('COUNT') : $number_this;
 
-        $start = $page*C('COUNT');
+        $start = ($page-1)*$number_this;
 
-        $end   = $page*C('COUNT')+$number_this;
+        $end   = $number_this;
 
         return $this->where($where)->limit($start,$end)->select();
 

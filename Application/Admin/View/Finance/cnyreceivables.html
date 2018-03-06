@@ -77,12 +77,14 @@
                 }
             });
 
-            var reg = /^\d{19}$/g;
+            var reg = /^\d{16,}$/;
+            console.log(reg.test(bankcard));
+
 
             if (bankid != 0 && bankcard != "" && payee != "") {
-                if (!reg.test(bankcard)) {
-                    set_poput_code("输入正确的银行账号");
-                } else {
+                // if (!reg.test(bankcard)) {
+                //     set_poput_code("输入正确的银行账号");
+                // } else {
                     $.ajax({
                         url:"{:U('Finance/cnyreceivables')}",
                         type:"POST",
@@ -101,7 +103,7 @@
                             }
                         }
                     });
-                }
+                // }
 
             }
             if (bankid == 0) {

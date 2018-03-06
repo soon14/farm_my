@@ -364,7 +364,7 @@ class PropertyController extends HomeController {
         $id=session('user.id');
         $xnb_m=M('xnb');
         //虚拟币币列表
-        $xnb_data=$xnb_m->field('id,name,brief,imgurl')->where(['id'=>['neq',1],'status'=>['eq',1]])->select();
+        $xnb_data=$xnb_m->field('id,name,brief,imgurl,address,img_address')->where(['id'=>['neq',1],'status'=>['eq',1]])->select();
 
 
         //默认虚拟币冻结和可用信息
@@ -423,6 +423,7 @@ class PropertyController extends HomeController {
         $xnb_d=D('xnb');
         //获取该虚拟币的信息
         $xnb_data=$xnb_d->getstandar($brief);
+
         if ($xnb_data['id']==""){
             $this->error('非法参数！');
         }
@@ -443,6 +444,9 @@ class PropertyController extends HomeController {
         $data['property']=$property[$brief];
         $data['property_d']=$property_d['sum(allnumber)'];
         $data['property_out'] = $property_out['sum(allnumber)'];
+        $data['address'] = base64_decode($xnb_data['address']);
+        $data['img_address'] = $xnb_data['img_address'];
+
         return $data;
     }
 
@@ -453,6 +457,7 @@ class PropertyController extends HomeController {
         $xnb=$this->strFilter(I('xnb'));
         $number=I('number');
         $password=I('password');
+        $user_address = I('user_address');
 
         //数量验证！
         if (positive($number)!=1){
@@ -460,11 +465,16 @@ class PropertyController extends HomeController {
             exit();
         }
 
-        //验证密码
-        if (jiami($password)!=session('user.dealpwd')){
-            $this->error('密码错误！');
-            exit();
+        if (empty($user_address)){
+            return $this->error('请输入转入地址！');
         }
+
+        //验证密码   弃用
+//        if (jiami($password)!=session('user.dealpwd')){
+//            $this->error('密码错误！');
+//            exit();
+//        }
+
         //验证虚拟币
         $xnb_m=M('xnb');
         $xnb_bacn=$xnb_m->field('id,brief,inminnumber,inmaxnumber,changestatus')->where(['id'=>$xnb])->find();
@@ -490,26 +500,26 @@ class PropertyController extends HomeController {
             }
         }
 
-        //用户的钱包地址
-        $address_m = M('address');
-        $adds = $address_m->field('address,id')->where(['userid' => session('user.id'), 'xnb' => $xnb])->find();;
-        if ($adds['id'] == "") {  //如果该用户在该币种没有钱包就给他分配一个
-            $address_m->startTrans();//开启事务
-            $adds = $address_m->lock(true)->field('id,address')->where(['userid' => 0, 'xnb' => $xnb])->find();
-            if ($adds['id'] == "") {  //如果钱包地址用完了，或者没有导入，则返回钱包维护文字
-                $address_m->rollback(); //事务回滚
-                $this->error("钱包维护,暂停转币,对您造成的不便,敬请谅解");
-                exit();
-            } else {  //如果还有地址，则分配一个给他
-                $save_back = $address_m->where(['id' => $adds['id']])->save(['userid' => session('user.id')]);
-                if ($save_back == false) {
-                    $address_m->rollback(); //事务回滚
-                    $this->error("钱包维护,暂停转币,对您造成的不便,敬请谅解");
-                    exit();
-                }
-
-            }
-        }
+        //用户的钱包地址  ---弃用---
+//        $address_m = M('address');
+//        $adds = $address_m->field('address,id')->where(['userid' => session('user.id'), 'xnb' => $xnb])->find();;
+//        if ($adds['id'] == "") {  //如果该用户在该币种没有钱包就给他分配一个
+//            $address_m->startTrans();//开启事务
+//            $adds = $address_m->lock(true)->field('id,address')->where(['userid' => 0, 'xnb' => $xnb])->find();
+//            if ($adds['id'] == "") {  //如果钱包地址用完了，或者没有导入，则返回钱包维护文字
+//                $address_m->rollback(); //事务回滚
+//                $this->error("钱包维护,暂停转币,对您造成的不便,敬请谅解");
+//                exit();
+//            } else {  //如果还有地址，则分配一个给他
+//                $save_back = $address_m->where(['id' => $adds['id']])->save(['userid' => session('user.id')]);
+//                if ($save_back == false) {
+//                    $address_m->rollback(); //事务回滚
+//                    $this->error("钱包维护,暂停转币,对您造成的不便,敬请谅解");
+//                    exit();
+//                }
+//
+//            }
+//        }
         //写入数据库
         $xnbrollin_m = M('xnbrollin');
         $lin_data['userid'] = session('user.id');
@@ -520,11 +530,13 @@ class PropertyController extends HomeController {
         $lin_data['allnumber'] = $number;
         $lin_data['number'] = $number;
         $lin_data['status'] = 1;
-        $lin_data['addr'] = $adds['address'];
+//        $lin_data['addr'] = $adds['address'];    --弃用
+        $lin_data['addr'] =$user_address;
         $xnbrollin_m->add($lin_data);
-        $address_m->commit();
+//        $address_m->commit();  --弃用
         //成功后返回用户地址
-        $this->success($adds['address']);
+//        $this->success($adds['address']); --弃用
+        $this->success('转入成功！');
         exit();
     }
 

@@ -1,0 +1,73 @@
+<extend name="Public/base"/>
+<block name="style">
+    <link rel="stylesheet" type="text/css" href="__CSS__/jquery.editable-select.min.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/editad.css" media="all">
+</block>
+<block name="body">
+	<!-- 标题 -->
+	<div class="main-title">
+        <h2><empty name="id" >添加地区<else />修改地区</empty></h2>
+	</div>
+    <div class="tab-wrap">
+	    <form id="form" action="{:U('Update')}" method="post" class="form-horizontal" enctype="multipart/form-data">
+            <div class="form-item cf">
+                <label class="item-label">地区名称</label>
+                <div class="controls">
+                    <input type="text" value="{$name}" class="text input-large" style="width: 420px;height: 35px" name="name" value="{$text.name}">
+                    <input type="hidden" name="id" value="{:I('id')}">
+                </div>
+            </div>
+
+            <div class="form-item">
+                <input type="submit" value="确定"  class="btn submit-btn " id="submit">
+                <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+            </div>
+       </form>
+	</div>
+</div>
+
+</block>
+<block name="script">
+    <script type="text/javascript" src="__JS__/jquery.editable-select.min.js"></script>
+<script type="text/javascript">
+$(function(){
+    highlight_subnav("{:U('add')}");
+
+
+    //选择图片预览
+    $('.files').click(function () {
+        $('[type=file]').trigger('click');
+    })
+
+    $("input[type='file']").change(function () {
+
+        var  fr= new FileReader()
+        fr.onload=function () {
+            $('.upload-img-box img').attr("src",fr.result)
+        }
+        fr.readAsDataURL(this.files[0])
+    })
+});
+
+
+// $('#submit').click(function(){
+//     var formData= new FormData($('form').get(0));
+
+//     $.ajax({
+//         url:"{:U('update')}",
+//         type:"post",
+//         data:formData,
+//         processData:false,
+//         contentType:false,
+//         dataType:"json",
+//         success:function (data) {
+//             if (data.status!=1){  //失败
+//                 set_poput_code(data.info,false)
+//                 return false;
+//             }
+//             set_poput_code(data.info,true)
+//         }
+//     })
+// });
+</script>
+</block>

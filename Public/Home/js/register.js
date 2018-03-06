@@ -567,6 +567,26 @@ function nextdeal() {
     }
 }
 function nextren() {
+
+  if ( $('[name=yaoqing_code_num]').css('display')=='block' ){
+        if (isEmpty($('[name=yaoqing_code_num]').val())){
+            set_poput_yanzhen("邀请码不可为空",false);
+            return false;
+        }else {
+            $.ajax({
+                url:"/Home`Register`check_yaoqing_code_num",
+                type:'post',
+                data:{key:$('[name=yaoqing_code_num]').val()},
+                success:function (data) {
+                    if (!data.status){
+                        set_poput_yanzhen("请输入正确的邀请码！",false);
+                        return false;
+                    }
+                }
+            })
+        }
+  }
+
     var newss=$('#input_identity').val();
     var check=$("#agree1_checkbox").attr("value");
     // newss==1 && check==1 && newpwd==1 && oldpwd==1 &&

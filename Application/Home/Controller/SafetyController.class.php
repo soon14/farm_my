@@ -41,6 +41,7 @@ class SafetyController extends SessionController    {
     function asd(){
         $ifsession=parent::__construct();
         if($ifsession){
+
             $user['id']=session('user.id');
             $model=M('users');
             $redata=$model->where($user)->select();

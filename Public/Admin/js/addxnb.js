@@ -1,17 +1,32 @@
 $(function () {
  
-    $('.files').click(function () {
-        $('[type=file]').trigger('click');
+    $('.file__icon').click(function () {
+        $('input[name=imgurl]').trigger('click');
     })
 
-    $('input[type=file]').change(function () {
+    $('input[name=imgurl]').change(function () {
        
         var  fr= new FileReader()
         fr.onload=function () {
-            $('.tb').attr("src",fr.result)
+            $('[name=imgurl_img]').attr("src",fr.result)
         }
         fr.readAsDataURL(this.files[0])
     })
+
+
+    $('.files_address').click(function () {
+        $('input[name=img_address]').trigger('click');
+    })
+
+    $('input[name=img_address]').change(function () {
+
+        var  fr= new FileReader()
+        fr.onload=function () {
+            $('[name=address_img]').attr("src",fr.result)
+        }
+        fr.readAsDataURL(this.files[0])
+    })
+
     
     $('.submit-btn').click(function () {
         var formData= new FormData($('form').get(0));

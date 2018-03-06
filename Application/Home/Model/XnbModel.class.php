@@ -39,7 +39,7 @@ class XnbModel extends Model{
 
 	//通过xnb的id返回相关信息
 	public function getstandar($id){
-		$back=$this->field('brief,name,id')->where(array(
+		$back=$this->field('brief,name,id,address,img_address')->where(array(
 			'id'=>$id
 		))->find();
 		return $back;

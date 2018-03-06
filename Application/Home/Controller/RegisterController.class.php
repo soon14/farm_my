@@ -20,6 +20,9 @@ class RegisterController extends HomeController {
         $code=$this->random(6,1);
         session("send_code",$code);
         $qcode=session('send_code');
+
+        $area = M('area')->select();
+        $this->assign('area',$area);
         $this->assign("code",$qcode);
         $this->redata();
         $this->display();
@@ -160,6 +163,7 @@ class RegisterController extends HomeController {
         $reset_trade_pw=$this->strFilter(I('reset_trade_pw'));
         $data['username']=$this->strFilter(I('real_name'));
         $data['idcard']=$this->strFilter(I('id_num'));
+        $data['area_id']=$this->strFilter(I('area_id'));
         $yanzheng_num=$this->strFilter(I('yanzheng_num'));
 
         //邮箱
@@ -501,6 +505,16 @@ class RegisterController extends HomeController {
         }else{
             $this->error("身份证无效，请输入正确身份证号码");
         }
+    }
+
+    /**
+     * 验证邀请码是否正确
+     */
+    function check_yaoqing_code_num(){
+        $key = I('key');
+        $data =  M('users')->field('id')->where(['invit'=>$key])->find();
+        return  empty($data['id']) ? $this->error('请填写正确的邀请码！') :$this->success('ok');
+
     }
     
 }

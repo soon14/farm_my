@@ -53,7 +53,7 @@
                     </div>
 
                     <if condition="($data eq null)">
-                        <if condition="($status eq 1)">
+                        <if condition="($status neq 1)">
                             <div class="add_bank"><button class="btn" id="add_btn">添加一个地址</button></div>
                             <div id="add_bank_info">
                                 <div class="bank_title">

@@ -8,6 +8,7 @@
 // +----------------------------------------------------------------------
 
 namespace Admin\Controller;
+use  Sodium\add;
 use Think\Page;
 
 //添加虚拟币
@@ -145,13 +146,9 @@ class SetupController extends AdminController  {
             }
          }
 
-         if ($_FILES['imgurl']['size']>0){           //有文件被上传时才执行文件操作！
-            if ($id!=""){    //
-               $imgurl_back=$xnb_m->field('imgurl')->where(array(
-                   'id'=>$id
-               ))->find();
-               unlink($imgurl_back['imgurl']);
-            }
+         #图片上传逻辑
+         if ($_FILES['imgurl']['size']>0 || $_FILES['img_address']['size']>0){           //有文件被上传时才执行文件操作！
+
             import('ORG.Net.UploadFile');
             $upload = new \Think\Upload();// 实例化上传类
             $upload->maxSize   =     3145728 ;// 设置附件上传大小
@@ -160,7 +157,31 @@ class SetupController extends AdminController  {
             $upload->savePath  =     ''; // 设置附件上传（子）目录
             // 上传文件
             $info   =   $upload->upload(I('imgurl'));  //上传文件功能！
-            $add_data['imgurl']='Uploads/'.$info['imgurl']['savepath'].$info['imgurl']['savename'];   //文件路径
+
+             $imgurl_back = [];
+             if ($id!=""){    //
+                 $imgurl_back=$xnb_m->field('imgurl,img_address')->where(array(
+                     'id'=>$id
+                 ))->find();
+
+             }
+
+             if ($_FILES['imgurl']['size']>0) {
+                 $add_data['imgurl']='Uploads/'.$info['imgurl']['savepath'].$info['imgurl']['savename'];   //文件路径
+                 if ($id!=""){
+                     unlink($imgurl_back['imgurl']);
+                 }
+             }
+
+             if ($_FILES['img_address']['size']>0){
+                 $add_data['img_address']='Uploads/'.$info['img_address']['savepath'].$info['img_address']['savename'];   //文件路径
+                 if ($id!=""){
+                     unlink($imgurl_back['img_address']);
+                 }
+             }
+
+
+
          }
 
          $xnb_m->startTrans();  //开启事务
