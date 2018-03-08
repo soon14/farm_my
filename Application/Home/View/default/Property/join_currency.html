@@ -109,7 +109,7 @@
 					</div>
 					<div class="form-group">
 						<label>备注码 : </label>
-						<input class="form-control"  name="user_address"    disabled="disabled" onload="six(this)"/>
+						<input class="form-control"  name="user_address"    disabled="disabled" value="{$random}"/>
 						<div style="color: red;padding-left: 85px;margin-top: 5px">*钱包转币时务必填入此备注码，否则无法到账！
 							若忘记填写，请联系客服
 						</div>
@@ -178,23 +178,6 @@
 	<script type="text/javascript" src='__QRACDE__/jquery.qrcode.js'></script>
 	<script>
 
-        $('[name=user_address]').val(randomstring(6))
-        /**
-		 * 返回一个随机的6位数字
-         * @param L
-         * @returns {string}
-         */
-        function randomstring(L){
-            var s= '';
-            var randomchar=function(){
-                var n= Math.floor(Math.random()*62);
-                if(n<10) return n; //1-10
-                if(n<36) return String.fromCharCode(n+55); //A-Z
-                return String.fromCharCode(n+61); //a-z
-            }
-            while(s.length< L) s+= randomchar();
-            return s.toLocaleUpperCase();
-        }
 	</script>
 
 </html>

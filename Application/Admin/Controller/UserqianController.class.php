@@ -8,6 +8,7 @@
 // +----------------------------------------------------------------------
 
 namespace Admin\Controller;
+use Home\Model\UsersModel;
 use User\Api\UserApi;
 use Think\Page;
 /**
@@ -54,7 +55,10 @@ class UserqianController extends AdminController {
         $rmima=$this-> strFilter(I('repassword'),true);
         $data['password']=jiami($mima);
         $data['addtime']=time();
-        $data['email']=$this-> strFilter(I('email'),true);
+        $data['email'] = I('email');
+
+        $data['invit'] = $this->yaoqianma($this->random(6));
+
         $where['users']=I('username');
         $model=M('users');
         $Inquire=$model->where($where)->select();
@@ -195,6 +199,7 @@ class UserqianController extends AdminController {
            $this->error("删除失败");
        }
     }
+
     /**
      * 新增加用户
      *
@@ -225,6 +230,41 @@ class UserqianController extends AdminController {
             $this->display();
         }
     }
+
+
+    /**
+     * 修改用户
+     */
+
+    function update(){
+        $id = I('id');
+
+        $usersModel = new UsersModel();
+        $users = $usersModel->field('users')->where(['id'=>$id])->find();
+        $this->assign('users',$users['users']);
+        $this->display();
+    }
+
+    function update_info(){
+
+        $id = I('id');
+        $data['password']=jiami(I('password'));
+        $data['repassword']=jiami(I('repassword'));
+        if ($data['password']!=$data['repassword']){
+            $this->error('确认密码失败！');
+        }
+        $usersModel = new UsersModel();
+        $usersModel->where(['id'=>$id])->save($data);
+        $this->success('修改成功！');
+
+    }
+
+
+
+
+
+
+
     /****
      *
      *用户充值
@@ -412,4 +452,34 @@ class UserqianController extends AdminController {
         action_log('user_recharge', 'userproperty', $id, UID,$user,$oldqian,$newhou,$cny,$biref['brief']);
         $this->success("充值成功");
     }
+
+    function yaoqianma($serf){
+        $modelserf=M('users')->field('invit')->select();
+        foreach($modelserf as $v){
+            if($v['invit']==$serf){
+                $serf=$this->random(8);
+                $this->yaoqianma($serf);
+            }
+        }
+        return $serf;
+    }
+    function random($length = 6 , $numeric = 0) {
+        PHP_VERSION < '4.2.0' && mt_srand((double)microtime() * 1000000);
+        if($numeric) {
+            $hash = sprintf('%0'.$length.'d', mt_rand(0, pow(10, $length) - 1));
+        } else {
+            $hash = '';
+            $chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789abcdefghjkmnpqrstuvwxyz';
+            $max = strlen($chars) - 1;
+            for($i = 0; $i < $length; $i++) {
+                $hash .= $chars[mt_rand(0, $max)];
+            }
+        }
+        return $hash;
+    }
+
+
 }
+
+
+

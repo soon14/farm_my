@@ -404,6 +404,8 @@ class PropertyController extends HomeController {
             ->select();
         $water_2=$water_2?$water_2:[];
         $water=array_merge($water_2,$water_1);
+
+        $this->assign('random',mt_rand(100000,999999));
         $this->assign('water',$water);
         $this->assign('xnb_prop',$xnb_prop);
         $this->assign('xnb_name',$xnb_data);
