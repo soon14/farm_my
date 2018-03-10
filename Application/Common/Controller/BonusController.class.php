@@ -10,7 +10,7 @@ namespace Common\Controller;
 
 use Common\Model\UsersModel;
 use Home\Model\UserpropertyModel;
-use function MongoDB\BSON\toJSON;
+use  MongoDB\BSON\toJSON;
 use Think\Controller;
 use Think\Exception;
 
