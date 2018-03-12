@@ -388,7 +388,7 @@ class PropertyController extends HomeController {
         $where_2['currency_xnbrollin.userid']=session('user.id');
 
         $water_1=$xnbrollinwater_m
-            ->field('currency_xnbrollinwater.addtime,currency_xnb.name,currency_xnbrollinwater.allnumber,currency_xnbrollinwater.number,currency_xnbrollinwater.addtime,currency_xnbrollinwater.status')
+            ->field('currency_xnbrollinwater.addtime,currency_xnbrollin.addr,currency_xnb.name,currency_xnbrollinwater.allnumber,currency_xnbrollinwater.number,currency_xnbrollinwater.addtime,currency_xnbrollinwater.status')
             ->where($where_1)
             ->join('left join currency_xnb on currency_xnbrollinwater.xnb=currency_xnb.id')
             ->order('currency_xnbrollinwater.addtime desc')
@@ -397,7 +397,7 @@ class PropertyController extends HomeController {
         $water_1=$water_1?$water_1:[];
 
         $water_2=$xnbrollin_m
-            ->field('currency_xnbrollin.addtime,currency_xnb.name,currency_xnbrollin.allnumber,currency_xnbrollin.number,currency_xnbrollin.addtime,currency_xnbrollin.status')
+            ->field('currency_xnbrollin.addtime,currency_xnbrollin.addr,currency_xnb.name,currency_xnbrollin.allnumber,currency_xnbrollin.number,currency_xnbrollin.addtime,currency_xnbrollin.status')
             ->where($where_2)
             ->join('left join currency_xnb on currency_xnbrollin.xnb=currency_xnb.id')
             ->order('currency_xnbrollin.addtime desc')

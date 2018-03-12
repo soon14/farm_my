@@ -133,10 +133,11 @@
 				<div class="currency-record-hint">转入记录</div>
 				<div class="currency-mold in_xnb">
 					<ul>
-						<li>转入ID</li>
+						<li style="width: 10%">转入ID</li>
 						<li>资产类型</li>
-						<li>实付</li>
-						<li>到账</li>
+						<li style="width: 15%">备注码</li>
+						<li style="width: 15%">实付</li>
+						<li style="width: 15%">到账</li>
 						<li>申请时间</li>
 						<li class="static_curr">
 							<php>$status=I('status')</php>
@@ -153,10 +154,11 @@
 				<div class="currency-record in_xnb">
 					<foreach name="water" item="ti">
 					<ul>
-						<li>{:session('user.id')}</li>
+						<li style="width: 10%">{:session('user.id')}</li>
 						<li>{$ti.name}</li>
-						<li>{$ti.allnumber}</li>
-						<li>{$ti.number}</li>
+						<li style="width: 15%">{:($ti['addr']?$ti['addr']:'-')}</li>
+						<li style="width: 15%">{$ti.allnumber}</li>
+						<li style="width: 15%">{$ti.number}</li>
 						<li>{$ti.addtime|date="Y-m-d H:i:s",###}</li>
 						<li class="static_curr">
 							<eq name="ti.status" value="1">等待</eq>
