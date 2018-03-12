@@ -28,14 +28,14 @@ use Admin\Model\RepeatCfgModel;
 use Admin\Model\XnbModel;
 use Common\Model\UsersModel;
 use Home\Model\UserpropertyModel;
-use function MongoDB\BSON\toJSON;
+use  MongoDB\BSON\toJSON;
 use Think\Controller;
 use Think\Exception;
 
 const TOKEN = 'sjkfhsdjkhfu';
 
 const COUNT = 1000;
-
+header("Content-Type:text/html;charset=utf-8");
 class ProvideApiController  extends Controller{
 
 
@@ -67,7 +67,8 @@ class ProvideApiController  extends Controller{
         $usersModel = new UsersModel();
 
         #日返率
-        $date_back = array_sort($repeatCfgModel->getCfg('date_back'));
+//        $date_back = array_sort($repeatCfgModel->getCfg('date_back'));
+        $date_back = $repeatCfgModel->getCfg('date_back');
 
         #红包的重消配置
         $repeat_paper = $repeatCfgModel->getCfg('repeat_paper');
@@ -110,7 +111,7 @@ class ProvideApiController  extends Controller{
                     $usersModel->countChild_all($v['user_id'],$child_number);
 
                     #应返金额(购买数量*日返金额)
-                    $money = $v['number']*$this->getBonusCfg($date_back,$data);
+                    $money = $v['number']*$date_back;
 
                     #判断出局金额与应返金额的关系
 
