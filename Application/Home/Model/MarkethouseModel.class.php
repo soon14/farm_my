@@ -24,7 +24,9 @@ class MarkethouseModel extends Model{
 		buymaxprice,
 		buyminprice,
 		maxallmoney,
-		minallmoney
+		minallmoney,
+		sellminprice,
+		sellmaxprice
 		')->find();
 		if ($back['id']!=""){
 			$xnb_m=D('xnb');

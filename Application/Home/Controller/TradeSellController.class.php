@@ -141,13 +141,13 @@ class TradeSellController extends HomeController{
         }
         //最大最小交易额暂定挂单时限制
 
-        if ($price>$markethouse_back['buymaxprice']){                          //买家最大交易价
-            $this->error('单价大于最大交易价'.'￥'.$markethouse_back['buymaxprice'].' !');
+        if ($price>$markethouse_back['sellmaxprice']){                          //买家最大交易价
+            $this->error('单价大于最大交易价'.'￥'.$markethouse_back['sellmaxprice'].' !');
             exit();
         }
 
-        if ($price<$markethouse_back['buyminprice']){                           //买家最小交易价
-            $this->error('单价小于最小交易价'.'￥'.$markethouse_back['buyminprice'].' !');
+        if ($price<$markethouse_back['sellminprice']){                           //买家最小交易价
+            $this->error('单价小于最小交易价'.'￥'.$markethouse_back['sellminprice'].' !');
             exit();
         }
 
