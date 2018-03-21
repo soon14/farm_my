@@ -140,7 +140,7 @@ class UserpropertyModel extends Model{
         }
 
 		if (!$back){
-            $this->error ='修改用户资产失败[number=>'.$number.']';
+            $this->error ='修改用户资产失败[number=>'.$number.']'.'id=>'.$userid;
             return false;
         }
 

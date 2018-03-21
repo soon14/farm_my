@@ -195,6 +195,7 @@ class HomeController extends Controller {
             ->join('left join currency_markethouse on  currency_xnb.id=currency_markethouse.standardmoney')
             ->join('left join currency_transactionrecords on currency_xnb.id=currency_transactionrecords.xnb and currency_transactionrecords.standardmoney=1')
             ->order('currency_transactionrecords.time desc')
+            ->where('currency_xnb.status=1 or currency_xnb.status=3')
             ->select(false);
         $xnb_data=$xnb_m->table($xnb_data_sql.'a')->group('xnb_id')->select();
 
@@ -207,7 +208,7 @@ class HomeController extends Controller {
         foreach ( $xnb_data as $k=>&$v){
             $v['property']=$property[$v['xnb_brief']];   //用户可用的资产
 
-            if ($v['xnb_id']!=1) {  //人民币不考虑卖单
+            if ($v['xnb_id']!=1&&$v['xnb_id']!=3) {  //人民币不考虑卖单
                 //卖单的冻结
                 $entrust_buy_data = $entrust_m->where(['userid' => session('user')['id'], 'xnb' => $v['xnb_id'], 'type' => 2])->field('sum(number)')->group('type')->find();
                 if ($entrust_buy_data != "") {
@@ -222,7 +223,7 @@ class HomeController extends Controller {
             }
             $v['price']=$v['price']?$v['price']:0;
 
-            if ($v['xnb_id']!=1){  //人人民币不考虑折合
+            if ($v['xnb_id']!=1&&$v['xnb_id']!=3){  //人人民币不考虑折合
 
                 #锁定资产
                 $v['memory'] = M('memory')->where([

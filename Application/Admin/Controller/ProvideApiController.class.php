@@ -43,9 +43,9 @@ class ProvideApiController  extends Controller{
     public function __construct()
     {
         parent::__construct();
-        if (empty(I('token')) || I('token')!=TOKEN){
-            exit(TOKEN);
-        }
+//        if (empty(I('token')) || I('token')!=TOKEN){
+//            exit(TOKEN);
+//        }
     }
 
 
@@ -99,16 +99,17 @@ class ProvideApiController  extends Controller{
             if (!$nullBonusAll){
                 throw new Exception('发放失败！');
             }
-
+            #返回用户金额
+            $userproperty = new UserpropertyModel();  //home 模块的 Userproperty
             for ($i = 0; $i<$count/C('Count');$i++){
 
                 $data = $bonus_m->getDataPage($where,$i);
 
                 foreach ($data as $k=>$v){
 
-                    $child_number = 0;
+//                    $child_number = 0;
 
-                    $usersModel->countChild_all($v['user_id'],$child_number);
+//                    $usersModel->countChild_all($v['user_id'],$child_number);
 
                     #应返金额(购买数量*日返金额)
                     $money = $v['number']*$date_back;
@@ -130,8 +131,6 @@ class ProvideApiController  extends Controller{
 
                     $all_money += $money;
 
-                    #返回用户金额
-                    $userproperty = new UserpropertyModel();  //home 模块的 Userproperty
 
                     #发放用户cny
                     $back = $userproperty->setChangeMoney(1,$money,$v['user_id'],'红包分红',2);
@@ -167,6 +166,7 @@ class ProvideApiController  extends Controller{
 
             }
 
+            $this->success('红包发放成功！');
             $bonus_m->commit();
 
         }catch (\Exception $e){

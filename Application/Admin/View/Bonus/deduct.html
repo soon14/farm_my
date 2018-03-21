@@ -48,7 +48,7 @@
                     <td>{$vo.order}</td>
                     <td>{$vo.number}</td>
                     <td>{:($vo['type'] == 1 ? '分享提成' : '管理津贴' )}</td>
-                    <td>{:date('Y-m-d H:m:s',$vo['time'])}</td>
+                    <td>{:date('Y-m-d H:i:s',$vo['time'])}</td>
                 </tr>
             </volist>
             </tbody>

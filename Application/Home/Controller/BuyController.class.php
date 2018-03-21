@@ -8,6 +8,7 @@
 // +----------------------------------------------------------------------
 
 namespace Home\Controller;
+use Common\Model\UsersModel;
 use Home\Model\UserpropertyModel;
 use Home\Model\IntegralModel;
 use Common\Controller\CmcpriceController;
@@ -221,6 +222,12 @@ class BuyController extends HomeController {
                         $res_ins = M("shop_order") -> add($data);
 
                         if ($res_ins) {
+
+                            if ($data['product_type'] == 1){
+
+                                $this->release(1,$res_ins);
+                            }
+
                             $user_proper -> commit();
                             $this -> success("购买成功");
                         } else {
@@ -270,6 +277,14 @@ class BuyController extends HomeController {
                             $res_ins = M("shop_order") -> add($data);
 
                             if ($res_ins) {
+
+                                if ($data['product_type'] == 1){
+
+                                    $this->release(1,$res_ins);
+                                }
+
+
+
                                 $user_proper -> commit();
                                 $this -> success("购买成功");
                             } else {
@@ -315,6 +330,7 @@ class BuyController extends HomeController {
                 default:
                     break;
             }
+
         } else {
             $this -> error("请选择支付方式");
             exit();
@@ -437,4 +453,134 @@ class BuyController extends HomeController {
         // var_dump($price);
         exit($price);
     }
+
+    //发红包或积分
+     function release($type, $id) {
+        $price = M()
+            -> table("currency_shop_order as o")
+            -> field("o.total_money, o.number, o.order, o.cmc, p.integral, p.out, p.price, u.pid, u.id")
+            -> join("left join currency_product as p on p.id = o.product_id")
+            -> join("left join currency_users as u on o.user_id = u.id")
+            -> where("o.id = ". $id)
+            -> find();
+
+        $return = false;
+
+        switch ($type) {
+            case '1': //红包
+                $data['outs'] = $price['out'];
+                $data['provide'] = 0;
+                $data['time'] = time();
+                $data['user_id'] = $price['id'];
+                $data['number'] = $price['price'];
+
+                $bonus_dis = new \Common\Controller\BonusController();
+
+                $bonus_m = M("bonus");
+                $bonus_m -> startTrans();
+
+                if ($price['number'] > 1) {
+
+                    for ($i=0; $i < $price['number']; $i++) {
+                        $data1[] = $data;
+                    }
+
+                    $res = $bonus_m -> addAll($data1);
+
+                    if ($res) {
+                        $m = 0;
+                        for ($i=0; $i < $price['number']; $i++) {
+                            $dis = $this -> distribution($bonus_dis, $price['id'], $price['pid'], $price['price'], $price['order']);
+                            if ($dis != true) {
+                                break;
+                            }
+                            $m ++;
+                        }
+                        if ($m >= $price['number'] - 1) {
+                            $bonus_m -> commit();
+                            $return = true;
+                        } else {
+                            $bonus_m -> rollback();
+                        }
+                    } else {
+                        $this -> error .= "批量发放红包失败";
+                    }
+
+                } else {
+                    $res = $bonus_m -> add($data);
+                    if ($res) {
+                        $dis = $this -> distribution($bonus_dis, $price['id'], $price['pid'], $price['price'], $price['order']);
+                        if ($dis != true) {
+                            $bonus_m -> rollback();
+                        } else {
+                            $bonus_m -> commit();
+                            $return = true;
+                        }
+                    } else {
+                        $this -> error .= "发放红包失败";
+                    }
+                }
+
+                break;
+            case '2': //报单
+                $data1['user_id'] = $price['id'];
+                $data1['repeats'] = 0;
+                $data1['water'] = 0;
+                $data1['time'] = time();
+                $data1['interest'] = 0;
+                $data1['releases'] = 0;
+                $data1['time_end'] = strtotime("-0 year -6 month -0 day");
+
+                $integral_m = M("integral");
+
+                if ($price['number'] > 1) {
+                    for ($i=0; $i < $price['number']; $i++) {
+                        $data[] = array_merge(['number' => $price['integral'], 'number_all' => $price['integral'], 'price' => $price['cmc']], $data1);
+                    }
+
+                    $res = $integral_m -> addAll($data);
+                    if ($res) {
+                        $return = true;
+                    } else {
+                        $this -> error = "批量发放积分失败";
+                    }
+                } else {
+                    $data['price'] = $price['cmc'];
+                    $data['number'] = $price['integral'];
+                    $data['number_all'] = $price['integral'];
+                    $data = array_merge($data1, $data);
+                    $res = $integral_m -> add($data);
+                    if ($res) {
+                        $return = true;
+                    } else {
+                        $this -> error .= "发放积分失败";
+                    }
+                }
+                // var_dump($data);
+                break;
+            case '3': //重消
+                $return = true;
+            // $this -> success("确认收货");
+            default:
+
+                break;
+        }
+
+        return $return;
+    }
+
+//红包分销
+     function distribution($bonus_dis, $id, $pid, $price, $order) {
+        $bonus_dis -> setUser(['id' => $id, 'pid' => $pid]);
+        $bonus_dis -> setMoney($price);
+        $bonus_dis -> setOrder($order);
+        $res_dis = $bonus_dis -> getParent();
+        if ($res_dis != true) {
+            $this -> error .= $bonus_dis -> getError();
+        }
+
+        return $res_dis;
+    }
+
+
 }

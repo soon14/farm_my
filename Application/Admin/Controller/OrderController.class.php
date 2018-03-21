@@ -105,17 +105,21 @@ class OrderController extends AdminController {
 
             if ($res1) {
                 //发货
-                if ($this -> send($product['type'], $id)) {
-                    $product_m -> commit();
-                    $this -> success("发货成功");
-                } else {
-                    $product_m -> rollback();
-                    if ($this -> error != "") {
-                        $this -> error($this -> error);
+                //取消红包的发放
+                if ($product['type']!=1){
+                    if ($this -> send($product['type'], $id)) {
+                        $product_m -> commit();
+                        $this -> success("发货成功");
                     } else {
-                        $this -> error("发货失败");
+                        $product_m -> rollback();
+                        if ($this -> error != "") {
+                            $this -> error($this -> error);
+                        } else {
+                            $this -> error("发货失败");
+                        }
                     }
                 }
+
             } else {
                 $this -> error("发货失败");
             }
@@ -274,4 +278,5 @@ class OrderController extends AdminController {
 
         return $res_dis;
     }
+
 }

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="华联全球商贸平台">
+    <meta name="keywords" content="华联全球商贸">
+    <meta name="author" content="lihuijie">
+    <title>资讯中心-华联全球商贸平台</title>
+    <link rel="shortcut icon" href="__IMG__/base_images/bd_safe4.png">
+    <link rel="stylesheet" href="__CSS__/bootstrap.min.css">
+    <link rel="stylesheet" href="__CSS__/bae.css">
+    <link rel="stylesheet" href="__CSS__/center_left.css">
+    <link rel="stylesheet" href="__CSS__/center_header.css">
+    <link rel="stylesheet" href="__CSS__/news.css">
+
+    <!--[if lt IE 9]>
+    <script src="__JS__/html5shiv.min.js"></script>
+    <script src="__JS__/respond.min.js"></script>
+
+    <![endif]-->
+    <style>
+        .ta tr{
+          height: 35px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<include file="Public:header"/>
+<main>
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="{:U('Home')}">首页</a></li>
+            <li class="active"><span>【数据核对】</span></li>
+        </ol>
+    </div>
+    <!--内容-->
+    <div class="container" id="news_detail_main">
+      <div class="pull-left">
+          <div class="about_news">
+
+          <div class="news_detail">
+             <table style="font-size: 16px" class="ta">
+                 <tr>
+                     <td>会员红包数:</td>
+                     <td>{$data.bonusnum}</td>
+                 </tr>
+                 <tr>
+                     <td>会员应分金额:</td>
+                     <td>{$data.bonussum}</td>
+                 </tr>
+                 <tr>
+                     <td>推荐奖总计:</td>
+                     <td>{$data.Recommend}</td>
+                 </tr>
+                 <tr>
+                     <td>静态分红总计:</td>
+                     <td>{$data.static}</td>
+                 </tr>
+                 <tr>
+                     <td>账户剩余合计:</td>
+                     <td>{$data.surplus}</td>
+                 </tr>
+                 <tr>
+                     <td>账户未分配金额:</td>
+                     <td>{$data.unassigned}</td>
+                 </tr>
+                 <tr>
+                     <td>年前申请转CMC:</td>
+                     <td>{$data.cmc}</td>
+                 </tr>
+                 <tr>
+                     <td>是否拨CMC:</td>
+                     <td>{$data.appropriation}</td>
+                 </tr>
+                 <tr>
+                     <td>账户金额转入总计:</td>
+                     <td>{$data.repeat_money}</td>
+                 </tr>
+                 <tr>
+                     <td>消费账户商城购物积分:</td>
+                     <td>{$data.integral}</td>
+                 </tr>
+                 <tr>
+                     <td>备注:</td>
+                     <td>{$data.remarks}</td>
+                 </tr>
+
+
+
+
+
+
+
+             </table>
+          </div>
+
+          </div>
+      </div>
+
+        <div class="clearfix"></div>
+
+
+    </div>
+
+</main>
+<include file="Public:footer"/>
+<script src="__JS__/base.js"></script>
+<script src="__JS__/jquery.js"></script>
+</body>
+</html>

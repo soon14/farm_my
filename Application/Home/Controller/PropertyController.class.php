@@ -8,6 +8,7 @@
 // +----------------------------------------------------------------------
 
 namespace Home\Controller;
+use Common\Controller\CmcpriceController;
 use OT\DataDictionary;
 use Think\Page;
 /**
@@ -35,20 +36,23 @@ class PropertyController extends HomeController {
             ->field('currency_xnb.id as xnb_id,currency_xnb.brief as xnb_brief,currency_xnb.name as xnb_name,currency_markethouse.name as marke,currency_xnb.imgurl,currency_transactionrecords.price')
             ->join('left join currency_markethouse on  currency_xnb.id=currency_markethouse.standardmoney')
             ->join('left join currency_transactionrecords on currency_xnb.id=currency_transactionrecords.xnb and currency_transactionrecords.standardmoney=1')
-            ->where('currency_xnb.status=1')
+            ->where('currency_xnb.status=1 or currency_xnb.status=3')
             ->order('currency_transactionrecords.time desc')
             ->select(false);
         $xnb_data=$xnb_m->table($xnb_data_sql.'a')->group('xnb_id')->select();
 
         $property=$userproperty_m->where(['userid'=>session('user')['id']])->field()->find();   //获取用户的所有资产！
         $repeats = $property['repeats'];
-        
+        $repeat_money = $property['repeat_money'];
+
+
         //匹配该本位币的用户可用资产
         $xnb_data['allpropertys']=0;
         foreach ( $xnb_data as $k=>&$v){
+
             $v['property']=$property[$v['xnb_brief']];   //用户可用的资产
 
-            if ($v['xnb_id']!=1) {  //人民币不考虑卖单
+            if ($v['xnb_id']!=1 && $v['xnb_id']!=3) {  //人民币不考虑卖单
                 //卖单的冻结
                 $entrust_buy_data = $entrust_m->where(['userid' => session('user')['id'], 'xnb' => $v['xnb_id'], 'type' => 2])->field('sum(number)')->group('type')->find();
                 if ($entrust_buy_data != "") {
@@ -63,7 +67,7 @@ class PropertyController extends HomeController {
             }
             $v['price']=$v['price']?$v['price']:0;
 
-            if ($v['xnb_id']!=1){  //人人民币不考虑折合
+            if ( $v['xnb_id']!=1 && $v['xnb_id']!=3){  //人人民币不考虑折合
                 #锁定资产
                 $v['memory'] = M('memory')->where([
                     'user_id'=>session('user')['id'],
@@ -72,6 +76,7 @@ class PropertyController extends HomeController {
 
                 // 计算折合
                 if ($v['price']!=""){
+
                     $v['allproperty']+=($v['property']+$v['property_clos']+$v['memory'])*$v['price'];
 
                 }else{
@@ -87,12 +92,18 @@ class PropertyController extends HomeController {
 
             }else{
                 $v['allproperty']=$v['property']+$v['property_clos'];
+
             }
+
             $xnb_data['allpropertys']+= $v['allproperty'];
 
         }
 
-        $this->assign('repeats',floatval($repeats));
+        $Cmcprice = new CmcpriceController();
+        $this->assign('cmcprice',$Cmcprice->getPrice());
+
+        $this->assign('repeat_money',floatval($repeat_money)); //红包重销
+        $this->assign('repeats',floatval($repeats)); //卖币重销账户
         $this->assign('xnb_data',$xnb_data);
         $this->display();
     }

@@ -60,7 +60,7 @@ class IndexController extends HomeController {
         // for ($i=0; $i < count($list); $i++) { 
         //     $list[$i] = $
         // }
-        // dump($list);
+
 
         $this -> assign("list", $list);
         $this -> assign("market", $market);

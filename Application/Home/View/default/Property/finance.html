@@ -58,8 +58,15 @@
 						</span>
 
 					</div>
+					<!--<div>-->
+						<!--<strong>您的重消账户：</strong><span class="money">￥{$repeats}</span>-->
+					<!--</div>-->
 					<div>
-						<strong>您的重消账户：</strong><span class="money">￥{$repeats}</span>
+						<strong>今日CMC1价格：</strong><span class="money">￥{$cmcprice}</span>
+					</div>
+					<br>
+					<div>
+					<strong>分红包转CMC1数量：</strong><span class="money">{:round($repeat_money/$cmcprice,2)} </span>(折合<span class="money">￥{$repeat_money}</span>)
 					</div>
 					<foreach name="xnb_data" item="vo">
 						<neq name="vo.marke" value="">
@@ -98,7 +105,7 @@
 
 					<ul id="record_grey" style="display: none">
 						<foreach name="xnb_data" item="vo" >
-							<if condition="(($vo['xnb_id'] neq 1) and ($vo['xnb_id'] neq 2)) and ($vo['xnb_id'] neq NULL) ">
+							<if condition="(($vo['xnb_id'] neq 1) and ($vo['xnb_id'] neq 2)) and ($vo['xnb_id'] neq 3) and ($vo['xnb_id'] neq NULL) ">
 							<li>
 								<dl>
 										<dd class="record-species">

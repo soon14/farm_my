@@ -189,26 +189,27 @@ class BonusController extends Controller
                         if (!$back){
                             throw new Exception($this->getError());
                         }
+                    }else{
+                        break;
                     }
 
+                }else{
+                    break;
                 }
 
                 #红包津贴,配置项必须正确才进入流程
-                if (is_array($subsidy) && !empty($subsidy)){
+//                if (is_array($subsidy) && !empty($subsidy)){
+//
+//                    $back = $this->subsidy($countChild,$UsersModel,$UserpropertyModel);
+//
+//                    if (!$back){
+//                        throw new Exception($this->getError());
+//                    }
+//                }
 
-                    $back = $this->subsidy($countChild,$UsersModel,$UserpropertyModel);
-
-                    if (!$back){
-                        throw new Exception($this->getError());
-                    }
-                }
-
-
-
-
-                if (empty($Parent['pid'])){
-                    break;
-                }
+//                if (empty($Parent['pid'])){
+//                    break;
+//                }
 
             }
 
@@ -238,6 +239,7 @@ class BonusController extends Controller
         $percentage = $this->cfg['deduct'][$this->register]['percentage'];
 
         #如果满足条件,红包提成
+
         if ($countChild>=$numpeople){
 
            $money = $this->money * $percentage/100;

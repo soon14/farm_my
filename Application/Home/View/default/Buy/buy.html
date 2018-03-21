@@ -202,10 +202,11 @@
     var ship_id = $("#ship_id").val();
     var price = $("#number").attr("data");
     
-    if (ship_id == "undefined" || ship_id == "" || ship_id == null || ship_id ==  false) {
+ /*    if (ship_id == "undefined" || ship_id == "" || ship_id == null || ship_id ==  false) {
       set_poput_code("请选择收货地址", false);
     } else {
-      $.ajax({
+    */
+	 $.ajax({
         url:"/Home`Buy`confirm",
         data:{product_id:product_id,type:type,number:number,ship_id:ship_id,price:price},
         type:"POST",
@@ -213,7 +214,8 @@
             location.href = '/Home`Buy`confirm?product_id=' + product_id + '&type=' + type + '&number=' + number + '&ship_id=' + ship_id;
         }
       })
-    }
+	  
+  //  }
     
   }) 
 
