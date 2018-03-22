@@ -145,8 +145,9 @@ class IndexController extends HomeController {
             $jialogin=$logins-1;
             if($logins>0){
                 $resdata['loginci']=$jialogin;
-                $shenyu=M('users')->where($idss)->save($resdata);
-                $this->error("密码错误！您还有 $jialogin 次机会");
+//                $shenyu=M('users')->where($idss)->save($resdata);
+//                $this->error("密码错误！您还有 $jialogin 次机会");
+                $this->error("账号或密码错误！");
             }else if($logins<=0){
                 $resdata['status']=-2;
                 $shenyus=M('users')->where($idss)->save($resdata);
