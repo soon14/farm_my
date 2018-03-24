@@ -97,14 +97,14 @@ class IndexController extends HomeController {
     {
         $REG="/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+|^1(3|4|5|7|8)\d{9}$/";
         $username = I('name');
-        $REGold=preg_match($REG,$username);
+//        $REGold=preg_match($REG,$username);
         $password = $this-> strFilter(I('pass'),true,"密码含有非法字符");
-        if($REGold==1){
+//        if($REGold==1){
             $w['users'] = $username;
-        }else{
-            $this->error("账号错误");
-            exit();
-        }
+//        }else{
+//            $this->error("账号错误");
+//            exit();
+//        }
         $rset = M("users")->where($w)->select();
         $wid['usreid'] = $rset[0]['id'];
         $id = $rset[0]['id'];

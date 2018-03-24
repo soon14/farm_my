@@ -48,6 +48,7 @@ class PropertyController extends HomeController {
 
         //匹配该本位币的用户可用资产
         $xnb_data['allpropertys']=0;
+
         foreach ( $xnb_data as $k=>&$v){
 
             $v['property']=$property[$v['xnb_brief']];   //用户可用的资产
@@ -91,7 +92,7 @@ class PropertyController extends HomeController {
                 }
 
             }else{
-                $v['allproperty']=$v['property']+$v['property_clos'];
+                $v['allproperty']+=$v['property']+$v['property_clos'];
 
             }
 

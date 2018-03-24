@@ -30,7 +30,8 @@ class BonusAllModel extends Model
     public function addNullBonusAll(){
         $back = $this->add([
             'number'=>0,
-            'time'=>time()
+            'time'=>time(),
+            'end_time'=>date('Y-m-d',time())
         ]);
 
         if (!$back){
@@ -42,9 +43,9 @@ class BonusAllModel extends Model
     }
 
 
-    public function saveNullBonusAll($number,$all_repeat){
+    public function saveNullBonusAll($id,$number,$all_repeat){
 
-        return $this->where(['id'=>$this->id])->save(['number'=>$number,'repeats'=>$all_repeat]);
+        return $this->where(['id'=>$id])->save(['number'=>$number,'repeats'=>$all_repeat]);
 
     }
 

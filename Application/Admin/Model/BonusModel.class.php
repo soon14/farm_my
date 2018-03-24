@@ -43,15 +43,16 @@ class BonusModel extends Model
 
     public function getDataPage($where,$page,$number_this=0){
 
-        $page+=1;
+//        $page+=1;
+//
+//        $number_this = $number_this == 0 ? C('COUNT') : $number_this;
+//
+//        $start = ($page-1)*$number_this;
+//
+//        $end   = $number_this;
 
-        $number_this = $number_this == 0 ? C('COUNT') : $number_this;
-
-        $start = ($page-1)*$number_this;
-
-        $end   = $number_this;
-
-        return $this->where($where)->limit($start,$end)->select();
+//        return $this->where($where)->limit($start,$end)->select();
+        return $this->where($where)->limit(0,1000)->select();
 
     }
 
@@ -62,9 +63,9 @@ class BonusModel extends Model
      * @param $number 本次发放的数量
      * @param $all_id 发放期数的id
      */
-    public function saveData($id,$number,$that_revenue,$repeats,$all_id){
+    public function saveData($id,$number,$that_revenue,$repeats,$all_id,$provide){
 
-        $back = $this->where(['id'=>$id])->setInc('provide',$number+$repeats);
+        $back = $this->where(['id'=>$id])->save(['provide'=>$number+$repeats+$provide,'send_time'=>date('Y-m-d',time())]);
         if (!$back){
             return false;
         }

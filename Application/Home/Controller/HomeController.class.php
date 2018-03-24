@@ -95,12 +95,12 @@ class HomeController extends Controller {
         $REG="/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+|^1(3|4|5|7|8)\d{9}$/";
 
         $loginusername = I('name');
-        $REGold=preg_match($REG,$loginusername);
-        if($REGold==1){
+//        $REGold=preg_match($REG,$loginusername);
+//        if($REGold==1){
             $w['users'] = $loginusername;
-        }else{
-            $this->error("账号错误");
-        }
+//        }else{
+//            $this->error("账号错误");
+//        }
 
         $rsetlogin = M("users")->where($w)->select();
         $loginci['loginci']=3;
