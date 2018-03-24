@@ -99,7 +99,7 @@ class PropertyController extends HomeController {
             $xnb_data['allpropertys']+= $v['allproperty'];
 
         }
-
+     
         $Cmcprice = new CmcpriceController();
         $this->assign('cmcprice',$Cmcprice->getPrice());
 
