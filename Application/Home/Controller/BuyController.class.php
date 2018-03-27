@@ -44,11 +44,19 @@ class BuyController extends HomeController {
         if ($product_id != null) {
             $product_info = M()
                 -> table("currency_product as p")
-                -> field("p.id, p.name, p.img, p.price, pc.type")
+                -> field("p.id, p.name, p.img, p.price, pc.type,p.out")
                 -> join("left join currency_procate as pc on p.cat_id = pc.id")
                 -> where("p.id = ". $product_id)
                 -> find();
             $product_info['price_show'] = $this -> getPriceShow($product_info['type'], $product_info['price'], $product_info['id']);
+            if ($product_info['out']>0) {
+                $cmcpriceController = new CmcpriceController();
+                $cmc_price = $cmcpriceController->getPrice();
+                $product_info['price_show'] = $product_info['price_show']/$cmc_price;
+                $product_info['price'] = $product_info['price']/$cmc_price;
+            }
+
+
         }
 
 
@@ -92,16 +100,26 @@ class BuyController extends HomeController {
         
         $product_info = M()
             -> table("currency_product as p")
-            -> field("p.id, p.name, p.img, p.price, pc.type")
+            -> field("p.id, p.name, p.img, p.price, pc.type,p.out")
             -> join("left join currency_procate as pc on p.cat_id = pc.id")
             -> where("p.id = ". $product_id)
             -> find();
         $product_info['price_single'] = $this -> getPriceShow($product_info['type'], $product_info['price'], $product_info['id']);
         $product_info['price_show'] = $this -> getPriceShow($product_info['type'], $product_info['price'], $product_info['id'], $number);
+        if ($product_info['out']>0) {
+            $cmcpriceController = new CmcpriceController();
+            $cmc_price = $cmcpriceController->getPrice();
+            $product_info['price_single'] = $product_info['price_single']/$cmc_price;
+            $product_info['price_show'] = $product_info['price_show']/$cmc_price;
+            $product_info['price'] = $product_info['price']/$cmc_price;
+        }
+
+
+
         //支付方式 method 1余额 2CMC+人民币 3红包重消  4积分
         switch ($type) {
             case '1':
-                $method = array(array("method" => 1, "name" => "余额账户"), array("method" => 3, "name" => "红包重消账户"));
+                $method = array(array("method" => 1, "name" => "cmc余额"), array("method" => 3, "name" => "红包重消账户"));
                 break;
             case '2':
                 $method = array(array("method" => 2, "name" => "确认支付"));
@@ -361,6 +379,9 @@ class BuyController extends HomeController {
         }
 
         $price_show = $this -> getPriceShow($type, $price, $product_id, $number);
+
+
+
         if (is_array($price_show)) {
             $price_show = $price_show['cmc'] . " CMC " . " + " . $price_show['cny'] . " CNY " ;
         }

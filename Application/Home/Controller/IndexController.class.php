@@ -8,6 +8,7 @@
 // +----------------------------------------------------------------------
 
 namespace Home\Controller;
+use Common\Controller\CmcpriceController;
 use GatewayWorker\Register;
 use OT\DataDictionary;
 use Think\Cache\Driver\Redis;
@@ -60,6 +61,11 @@ class IndexController extends HomeController {
         // for ($i=0; $i < count($list); $i++) { 
         //     $list[$i] = $
         // }
+
+        //cmc单价
+        $cmcpriceController = new CmcpriceController();
+        $cmc_price = $cmcpriceController->getPrice();
+        $this -> assign("cmc_price", $cmc_price);
 
 
         $this -> assign("list", $list);

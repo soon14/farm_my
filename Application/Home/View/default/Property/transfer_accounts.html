@@ -153,10 +153,10 @@
             url:"",
             type:'post',
             data:{user:$('#user').val(),'number':number},
-            success:function(){
+            success:function(data){
 
-                    set_poput_code(data.info,data.status ? true : false);
-
+                    set_poput_code(data.info,data.status);
+                    return false
             }
 
         })

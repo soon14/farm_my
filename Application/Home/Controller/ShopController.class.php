@@ -40,7 +40,7 @@ class ShopController extends HomeController {
         //产品列表
         $res = M() 
             -> table("currency_product as p")
-            -> field("p.id, p.name, p.price, p.img, p.cat_id, pc.type, pc.name as class_name") 
+            -> field("p.id, p.name, p.price, p.img, p.cat_id,p.out, pc.type, pc.name as class_name")
             -> join("left join currency_procate as pc on pc.id = p.cat_id")
             -> where("6 > (select count(*) from currency_product as pro where p.cat_id = pro.cat_id and pro.sort > p.sort ) and p.status = 1")
             -> order("p.cat_id, p.sort")
@@ -81,12 +81,20 @@ class ShopController extends HomeController {
     public function single($id) {
         $info = M() 
             -> table("currency_product as p")
-            -> field("p.id, p.name, p.price, p.img, p.description, p.cat_id, pc.name as class_name, pc.type") 
+            -> field("p.id, p.name, p.price, p.img, p.description, p.cat_id,p.out, pc.name as class_name, pc.type")
             -> join("left join currency_procate as pc on pc.id = p.cat_id")
             -> where("p.id = ". $id) 
             -> find();
         
         $price_show = $this -> getPriceShow($info['type'], $info['price'], $info['id']);
+
+        /*判断是否是红包产品*/
+
+        if ($info['out']>0) {
+            $cmcpriceController = new CmcpriceController();
+            $cmc_price = $cmcpriceController->getPrice();
+            $price_show = $price_show/$cmc_price;
+        }
 
         $this -> assign("price_show", $price_show);
         $this -> assign("info", $info);

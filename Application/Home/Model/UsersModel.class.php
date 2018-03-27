@@ -37,7 +37,7 @@ class UsersModel extends Model
             if ($data['id'] == session('user.id')){
                 $data['username'] = $data['username'] ? $data['username']:'**';
 
-                return $data;
+                return $users;
                 break;
             }
 

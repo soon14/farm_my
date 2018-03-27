@@ -183,15 +183,27 @@
                                                         <div class="cart-left">
                                                             <p class="title">{$val2.name}</p>
                                                             <div class="price1">
+
                                                                 <eq name="val2.type" value="1">
-                                                                    <span class="actual">{$val2.price_show}</span>
+                                                                    <gt name="val2.out" value="0">
+                                                                        {$val2['price_show']/$cmc_price}
+                                                                        <else/>
+                                                                        <span class="actual">{$val2.price_show}</span>
+                                                                    </gt>
+
+
                                                                 </eq>
                                                                 <eq name="val2.type" value="2">
                                                                     <span class="actual">{$val2.price_show.cmc} CMC + {$val2.price_show.cny} CNY</span>
                                                                 </eq>
                                                                 <eq name="val2.type" value="3">
-                                                                    <span class="actual">{$val2.price_show}</span>
+
+
+                                                                        <span class="actual">{$val2.price_show}</span>
+
+
                                                                 </eq>
+
                                                                 
                                                             </div>
                                                         </div>

@@ -1558,6 +1558,7 @@ class PropertyController extends HomeController {
             }
             $usersModel = new UsersModel();
             $data = $usersModel->is_child($user);
+
             if ($data){
                 try{
                     #修改我自己的账户
@@ -1572,6 +1573,17 @@ class PropertyController extends HomeController {
                     $back = $userpropertyModel->setChangeMoney(3,$number,$data['id'],'会员转账',2);
                     if (!$back){
                         throw new Exception($userpropertyModel->getError());
+                    }
+
+                    #生成转账流水
+                    $back=M('accounts')->add([
+                        'user_id'=>session('user.id'),
+                        'accept_id'=>$data['id'],
+                        'money'=>$number,
+                        'time'=>time()
+                    ]);
+                    if (!$back){
+                        throw new Exception('转账流水生成失败！');
                     }
 
                     $this->success('转账成功！');
@@ -1603,6 +1615,7 @@ class PropertyController extends HomeController {
         $data = $usersModel->is_child($user);
 
         if ($data){
+            $data['username'] = $data['username']?$data['username']:'**';
             return  $this->success($data);
         }else{
             return  $this->error($usersModel->getError());
