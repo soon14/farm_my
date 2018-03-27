@@ -82,13 +82,14 @@
     background-color: #FFFFFF;
 }
 .turnUl{
-	width: 40%;
+	width: 35rem;
 	/*margin: 2rem 0 0 2rem;*/
 	margin: 0 auto;
 	margin-top: 1rem;
 }
 .turnUl li{
 	width: 100%;
+	/*width: 10rem;*/
 	height: 5rem;
 	line-height: 2.7rem;
 }
