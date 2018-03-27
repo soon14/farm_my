@@ -1613,14 +1613,14 @@ class PropertyController extends HomeController {
     function transferRecord(){
         $accounts_m = M('accounts');
 
-        $count = $accounts_m->where(['user_id'=>session('user.id')])->count();
+        $count = $accounts_m->where([ 'currency_accounts.user_id'=>session('user.id'),'currency_accounts.accept_id'=>session('user.id'),'_logic'=>'or'])->count();
 
-        $page = new Page($count,15);
+        $page = new Page($count,10,['tag'=>I('tag')]);
 
         $show = $page->show();
 
-        $list = $accounts_m->where(['currency_accounts.user_id'=>session('user.id')])->field('currency_accounts.*,currency_users.users')
-                    ->join(' left join currency_users on currency_users.id = currency_accounts.accept_id')->limit($page->firstRow,$page->listRows)->select();
+        $list = $accounts_m->where([ 'currency_accounts.user_id'=>session('user.id'),'currency_accounts.accept_id'=>session('user.id'),'_logic'=>'or'])->field('currency_accounts.*,currency_users.users')
+                          ->join(' left join currency_users on currency_users.id = currency_accounts.accept_id')->limit($page->firstRow,$page->listRows)->select();
 
         $this->assign('list',$list);
         $this->assign('page',$show);
@@ -1645,7 +1645,6 @@ class PropertyController extends HomeController {
         }else{
             return  $this->error($usersModel->getError());
         }
-
 
     }
 
