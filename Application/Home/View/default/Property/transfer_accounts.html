@@ -55,45 +55,49 @@
             </div>
             	<ul class="turnUl">
             		<li>
-            			<p>接收人编号<span>*</span></p>
-            			<input type="text" name="" id="" value="" placeholder="请输入接收人标号"/>
+            			<p>可用金额<span>*</span></p>
+            			<input type="text" id="money"  value="{$money.repeat_money}" disabled="disabled" style="color: red"/>
+            		</li>
+                    <li>
+            			<p>接收人账户<span>*</span></p>
+            			<input type="text" name="user" id="user" value="" placeholder="请输入接收人标号"/>
             		</li>
             		<li>
             			<p>接收人姓名<span>*</span></p>
-            			<input type="text" name="" id="" value="" placeholder="请输入接收人姓名"/>
+            			<input type="text" id="name" value="" disabled="disabled" placeholder="请输入接收人姓名"/>
             		</li>
-            		<li>
-            			<p>现金币<span>*</span></p>
-            			<input type="text" name="" id="" value="" placeholder="请输入值"/>
-            		</li>
-            		<li>
-            			<p>电子币<span>*</span></p>
-            			<input type="text" name="" id="" value="" placeholder="请输入值"/>
-            		</li>
-            		<li>
-            			<p>种子币<span>*</span></p>
-            			<input type="text" name="" id="" value="" placeholder="请输入值"/>
-            		</li>
-            		<li>
-            			<p>购物币<span>*</span></p>
-            			<input type="text" name="" id="" value="" placeholder="请输入值"/>
-            		</li>
-            		<li>
-            			<p>转账类型<span>*</span></p>
-            			<select>
-						  <option value="volvo">电子币-->电子币</option>
-						  <option value="saab">电子币-->现金币</option>
-						  <option value="opel">电子币-->种子币</option>
-						</select>
-            		</li>
+            		<!--<li>-->
+            			<!--<p>重销账户<span>*</span></p>-->
+            			<!--<input type="text" name="" id="" value="" placeholder="请输入值"/>-->
+            		<!--</li>-->
+            		<!--<li>-->
+            			<!--<p>电子币<span>*</span></p>-->
+            			<!--<input type="text" name="" id="" value="" placeholder="请输入值"/>-->
+            		<!--</li>-->
+            		<!--<li>-->
+            			<!--<p>种子币<span>*</span></p>-->
+            			<!--<input type="text" name="" id="" value="" placeholder="请输入值"/>-->
+            		<!--</li>-->
+            		<!--<li>-->
+            			<!--<p>购物币<span>*</span></p>-->
+            			<!--<input type="text" name="" id="" value="" placeholder="请输入值"/>-->
+            		<!--</li>-->
+            		<!--<li>-->
+            			<!--<p>转账类型<span>*</span></p>-->
+            			<!--<select>-->
+						  <!--<option value="volvo">电子币&ndash;&gt;电子币</option>-->
+						  <!--<option value="saab">电子币&ndash;&gt;现金币</option>-->
+						  <!--<option value="opel">电子币&ndash;&gt;种子币</option>-->
+						<!--</select>-->
+            		<!--</li>-->
             		<li>
             			<p>转账金额<span>*</span></p>
-            			<input type="text" name="" id="" value="" placeholder="请输入转账金额"/>
+            			<input type="text" name="number" id="number" value="" placeholder="请输入转账金额"/>
             		</li>
-            		<li>
-            			<p>二级密码<span>*</span></p>
-            			<input type="text" name="" id="" value="" placeholder="请输入二级密码"/>
-            		</li>
+            		<!--<li>-->
+            			<!--<p>二级密码<span>*</span></p>-->
+            			<!--<input type="text" name="" id="" value="" placeholder="请输入二级密码"/>-->
+            		<!--</li>-->
             		<li >
             			<button  type="submit">确认转账</button>
             		</li>
@@ -114,6 +118,54 @@
 <script src="__JS__/date_picker.js"></script>
 <script type="text/javascript" src="__JS__/finance_comm.js" ></script>
 <!--<script type="text/javascript" src="__JS__/jquery.dataTables.min" ></script>-->
+<script>
+	$('#user').blur(function(){
+		$.ajax({
+			url:"{:U('is_child')}",
+			type:'post',
+			data:{'user':$('#user').val()},
+			success:function (data) {
+                if (!data.status){
+                    set_poput_code(data.info,false);
+                    return false
+                }
+
+                $('#name').val(data.info.username);
+            }
+		})
+	});
+
+	$('[type=submit]').click(function () {
+
+        var money = parseFloat($('#money').val());
+        var number = parseFloat($('[name = number]').val());
+        if (number<=0){
+            set_poput_code('请输入正确的金额',false);
+            return false;
+        }
+
+        if (number>money){
+            set_poput_code('账户余额不足！',false);
+            return false;
+        }
+
+        $.ajax({
+            url:"",
+            type:'post',
+            data:{user:$('#user').val(),'number':number},
+            success:function(){
+
+                    set_poput_code(data.info,data.status ? true : false);
+
+            }
+
+        })
+
+
+
+    })
+
+</script>
 
 </body>
 

@@ -9,8 +9,12 @@
 
 namespace Home\Controller;
 use Common\Controller\CmcpriceController;
+use Home\Model\UserpropertyModel;
+use Home\Model\UsersModel;
 use OT\DataDictionary;
+use Think\Exception;
 use Think\Page;
+
 /**
  * 前台首页控制器
  * 主要获取首页聚合数据 
@@ -99,7 +103,7 @@ class PropertyController extends HomeController {
             $xnb_data['allpropertys']+= $v['allproperty'];
 
         }
-     
+
         $Cmcprice = new CmcpriceController();
         $this->assign('cmcprice',$Cmcprice->getPrice());
 
@@ -1538,6 +1542,74 @@ class PropertyController extends HomeController {
         
     }
 
+
+    /**
+     *用户向下转出资产
+     */
+
+    function transfer_accounts(){
+
+        $money  = M('userproperty')->field('repeat_money')->where(['userid'=>session('user.id')])->find();
+        if (IS_POST){
+            $user = I('user');
+            $number = I('number');
+            if (!is_numeric($number)){
+                return $this->error('请输入正确的金额！');
+            }
+            $usersModel = new UsersModel();
+            $data = $usersModel->is_child($user);
+            if ($data){
+                try{
+                    #修改我自己的账户
+                    $userpropertyModel = new UserpropertyModel();
+                    $back = $userpropertyModel->setChangeMoney(3,$number,session('user.id'),'会员转账',1);
+                    if (!$back){
+                        throw new Exception($userpropertyModel->getError());
+                    }
+
+                    #修改下级账户
+                    $userpropertyModel = new UserpropertyModel();
+                    $back = $userpropertyModel->setChangeMoney(3,$number,$data['id'],'会员转账',2);
+                    if (!$back){
+                        throw new Exception($userpropertyModel->getError());
+                    }
+
+                    $this->success('转账成功！');
+                }catch (\Exception $e){
+                   return $this->error('转账失败！错误信息：'.$e->getMessage());
+                }
+
+
+            }else{
+                return  $this->error($usersModel->getError());
+            }
+
+
+        }
+
+
+        $this->assign('money',$money);
+        $this->display();
+    }
+
+    /**
+     * @return mixed
+     * 判断用户是否是下级
+     */
+    function is_child(){
+
+        $user = I('user');
+        $usersModel = new UsersModel();
+        $data = $usersModel->is_child($user);
+
+        if ($data){
+            return  $this->success($data);
+        }else{
+            return  $this->error($usersModel->getError());
+        }
+
+
+    }
 
 
 }

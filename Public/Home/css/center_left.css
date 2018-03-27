@@ -81,6 +81,65 @@
     font-weight: bold;
     background-color: #FFFFFF;
 }
+.turnUl{
+	width: 40%;
+	/*margin: 2rem 0 0 2rem;*/
+	margin: 0 auto;
+	margin-top: 1rem;
+}
+.turnUl li{
+	width: 100%;
+	height: 5rem;
+	line-height: 2.7rem;
+}
+
+.turnUl li p{
+	width: 25%;
+	float: left;
+	text-align: right;
+}
+
+.turnUl li input,select{
+	float: right;
+	vertical-align:middle
+	box-sizing: border-box;
+    /*font-size:1.4em;*/
+    height:2.7em;
+    border-radius:4px;
+    border:1px solid #c8cccf;
+    color:#6a6f77;
+    -web-kit-appearance:none;
+   -moz-appearance: none;
+   display:block;
+   outline:0;
+   padding:0 1em;
+   /*text-decoration:none;*/
+   width:70%;
+}
+
+.turnUl button{
+	border: 0;
+	width: 10rem;
+	height: 2rem;
+	position: relative;
+	left: 30%;
+}
+
+.turnUl button{
+	border: 0;
+	width: 10rem;
+	height: 4rem;
+	position: relative;
+	left: 30%;
+	border-radius: 15px;
+}
+
+.turnUl button:active {
+    position:relative;
+    top:1px;
+}
+
+
 /*center right*/
 .center_content .pull-right{
     width: 80%;

@@ -1653,3 +1653,100 @@ width: 97%;
 	border: 1px solid #dddddd;
 	color: #FA4223;
 }
+
+/*******何星辰修改********/
+/*******finance_details页面******/
+/*.financeBox{
+	width: 100%;
+	height: 4rem;
+}
+
+.financeBoxUl{
+	width: 100%;
+	height: 4rem;
+}*/
+
+
+.financeBox{
+	margin-top: 30px;
+	font-weight: bold;
+}
+.financeBox ul{
+	width: 97%;
+	height: 36px;
+	line-height: 36px;
+	background: #E8E8E8;
+}
+.financeBox ul li{
+	float: left;
+	width: 8%;
+	text-align: center;
+}
+.financeBox ul li select{
+	font-weight: bold;
+}
+.financeBox ul li:last-child{
+	width: 7%;
+}
+
+.financeBox ul li img{
+	width: 22px;
+	height: 22px;
+	vertical-align: -5px;
+}
+.financeBox ul li select{
+	display: inline-block;
+	width: 90%;
+}
+
+.financeBox2{
+	width: 97%;
+}
+.financeBox2 ul{
+	width: 100%;
+	height: 500px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	border: 1px solid #dddddd;
+}
+
+.financeBox2 ul li dl{
+	width: 100%;
+	height: 36px;
+	background: #fff;
+	border-bottom: 1px solid #ededed;
+	font-size: 12px;
+	border-top: none;
+}
+.financeBox2 ul li dl:hover{
+	background-color: rgb(249,242,221);
+}
+.financeBox2 ul li dl dt{
+	width: 8%;
+	float: left;
+	font-weight: 500;
+	line-height: 36px;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.entrust-column ul .entrust-column-type{
+	width: 20%;
+}
+.entrust-content ul .entrust-column-type {
+	width: 19%;
+	padding-left: 10px;
+}
+.financeBox2 ul .entrust-column-time{
+	width: 17%;
+}
+.financeBox ul .entrust-column-time{
+	 width: 17%;
+ }
+.financeBox2 ul .entrust-column-num{
+	width: 20%;
+}
+.financeBox ul .entrust-column-num{
+	width: 19%;
+}
