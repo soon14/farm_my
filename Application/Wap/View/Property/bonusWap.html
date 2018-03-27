@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=1">
+		<meta name="format-detection" content="telephone=no,address=no">              
+		<title></title>
+		<link rel="stylesheet" href="__CSS__/base.css" />
+		<link rel="stylesheet" href="__CSS__/personage.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../Public/Home/css/jquery.dataTables.css"/>
+		<script type="text/javascript" src="__JS__/jquery-1.12.3.min.js" ></script>
+		<script type="text/javascript" src="__JS__/fastclick.js" ></script>
+		<script type="text/javascript" src="__JS__/base.js" ></script>
+		<script type="text/javascript" src="__JS__/personage.js" ></script>
+		<script type="text/javascript" src="../../../../Public/Home/js/jquery.dataTables.min.js"></script>
+		<style type="text/css">
+			.financeTop{
+				width: 100%;
+				height: 40px;
+				box-shadow: ;
+				text-align: center;
+				background: #fff;
+				color: #000;
+				position: relative;
+				/*position: fixed;*/
+				top: 0px;
+				z-index: 20;
+				border-bottom: 1px #eee solid;
+				max-width: 640px;
+			}
+			.financeTop .financeTop-left{
+				display:inline-block;
+				position: absolute;
+				left: 15px;
+				top: 0px;
+				color: #000;
+				font-size: 15px;
+				line-height: 40px;
+			}
+			.financeTop-left img{
+				width: 12px;
+				height: 22px;
+				vertical-align: -6px;
+			}
+			.financeTop h2{
+				font-size: 17px;
+				font-weight: 500;
+				display: inline-block;
+				line-height: 41px;
+			}
+			.financeTop .financeTop-right{
+				position: absolute;
+				right: 15px;
+				line-height: 40px;
+				top: 0px;
+				box-sizing: border-box;
+			}
+			.financeTop  .financeTop-right img{
+				width: 20px;
+				height: 20px;
+				margin-top: 10px;
+			}
+		</style>
+	</head>
+	<body class="backgroundf6">
+		<header class="financeTop">
+			<a class="financeTop-left" id="back">
+				<img src="__IMG__/back.png"/>
+				<span>返回</span>
+			</a>
+			<h2>奖金明细</h2>
+		</header>
+			<table id="example" class="display" cellspacing="0" width="100%" style="margin-top: 1rem;">
+		        <thead>
+		            <tr>
+		            	<td>#</td>
+	                    <td>会员编号</td>
+	                    <td>姓名</td>
+	                    <td>静态分红</td>
+	                    <td>直推奖</td>
+	                    <td>经理奖</td>
+	                    <td>极差奖</td>
+	                    <td>奖金</td>
+	                    <td>种子</td>
+	                    <td>扣税</td>
+	                    <td>总计</td>
+	                    <td>计算日期</td>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr>
+            			<td>1</td>
+                        <td>CM7</td>
+                        <td>777</td>
+                        <td>10.00</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>13.00</td>
+                        <td>5.98</td>
+                        <td>.7</td>
+                        <td>20.00</td>
+                        <td>2018-3-26 14:12:13</td>
+		            </tr>
+		        </tbody>
+		   </table>
+		<include file="Public:footer" />
+	
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+        $('#example').DataTable({
+//      	"data":tbody1,
+			"searching" : false,
+			"paging":   false,//分页器
+			"ordering": false,//选择竖
+			"info":     false,//下方显示第几页
+			"sScrollY": "600px",//Y轴滑动
+			"sScrollX": "800px",//X轴滑动
+        });
+    });
+	</script>
+</html>

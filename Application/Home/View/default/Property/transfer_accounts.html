@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="华联全球商贸平台">
+    <meta name="keywords" content="华联全球商贸">
+    <meta name="author" content="lihuijie">
+    <title>委托管理-华联全球商贸平台</title>
+    <link rel="shortcut icon" href="__IMG__/base_images/bd_safe4.png">
+    <link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css"/>
+    <link rel="stylesheet" href="__CSS__/bae.css">
+    <link rel="stylesheet" href="__CSS__/default.css" />
+    <link rel="stylesheet" href="__CSS__/jquery.ui.css"/>
+    <link rel="stylesheet" href="__CSS__/center_left.css">
+    <link rel="stylesheet" href="__CSS__/center_header.css">
+    <!--<link rel="stylesheet" href="__CSS__/jquery.dataTables.min.css">-->
+    <link rel="stylesheet" type="text/css" href="../../../../../Public/Home/css/jquery.dataTables.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/finance.css"/>
+    <script type="text/javascript" src="__JS__/jquery.js" ></script>
+    <script src="__JS__/base.js"></script>
+    <style>
+        .ul_head li,dt{
+             /*width: 16%!important;*/
+             text-align: center;
+        }
+    </style>
+</head>
+<body>
+<include file="Public:header"/>
+
+<main>
+
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="{:U('Index/index')}">首页</a></li>
+            <li><a href="{:u('Property/finance')}">财务中心</a></li>
+            <li class="active">
+                <span>委托管理</span>
+            </li>
+        </ol>
+    </div>
+
+    <div class="container center_content">
+      
+        <include file="Public:finance_left"/>
+
+        <div class="pull-right finance-content">
+            <div class="big_title">
+                <h4>会员转账</h4>
+                <div class="clearfix"></div>
+            </div>
+            	<ul class="turnUl">
+            		<li>
+            			<p>接收人编号<span>*</span></p>
+            			<input type="text" name="" id="" value="" placeholder="请输入接收人标号"/>
+            		</li>
+            		<li>
+            			<p>接收人姓名<span>*</span></p>
+            			<input type="text" name="" id="" value="" placeholder="请输入接收人姓名"/>
+            		</li>
+            		<li>
+            			<p>现金币<span>*</span></p>
+            			<input type="text" name="" id="" value="" placeholder="请输入值"/>
+            		</li>
+            		<li>
+            			<p>电子币<span>*</span></p>
+            			<input type="text" name="" id="" value="" placeholder="请输入值"/>
+            		</li>
+            		<li>
+            			<p>种子币<span>*</span></p>
+            			<input type="text" name="" id="" value="" placeholder="请输入值"/>
+            		</li>
+            		<li>
+            			<p>购物币<span>*</span></p>
+            			<input type="text" name="" id="" value="" placeholder="请输入值"/>
+            		</li>
+            		<li>
+            			<p>转账类型<span>*</span></p>
+            			<select>
+						  <option value="volvo">电子币-->电子币</option>
+						  <option value="saab">电子币-->现金币</option>
+						  <option value="opel">电子币-->种子币</option>
+						</select>
+            		</li>
+            		<li>
+            			<p>转账金额<span>*</span></p>
+            			<input type="text" name="" id="" value="" placeholder="请输入转账金额"/>
+            		</li>
+            		<li>
+            			<p>二级密码<span>*</span></p>
+            			<input type="text" name="" id="" value="" placeholder="请输入二级密码"/>
+            		</li>
+            		<li >
+            			<button  type="submit">确认转账</button>
+            		</li>
+            		
+            	</ul>
+            <div class="page">
+                {$page}
+            </div>
+            
+        </div>
+    </div>
+</main>
+
+<include file="Public:footer"/>
+
+<script type="text/javascript" src="/Public/Home/js/jquery.ui.js"></script>
+<script src="__JS__/center_left.js"></script>
+<script src="__JS__/date_picker.js"></script>
+<script type="text/javascript" src="__JS__/finance_comm.js" ></script>
+<!--<script type="text/javascript" src="__JS__/jquery.dataTables.min" ></script>-->
+
+</body>
+
+</html>

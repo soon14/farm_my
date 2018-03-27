@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="华联全球商贸平台">
+    <meta name="keywords" content="华联全球商贸">
+    <meta name="author" content="lihuijie">
+    <title>委托管理-华联全球商贸平台</title>
+    <link rel="shortcut icon" href="__IMG__/base_images/bd_safe4.png">
+    <link rel="stylesheet" type="text/css" href="__CSS__/bootstrap.min.css"/>
+    <link rel="stylesheet" href="__CSS__/bae.css">
+    <link rel="stylesheet" href="__CSS__/default.css" />
+    <link rel="stylesheet" href="__CSS__/jquery.ui.css"/>
+    <link rel="stylesheet" href="__CSS__/center_left.css">
+    <link rel="stylesheet" href="__CSS__/center_header.css">
+    <!--<link rel="stylesheet" href="__CSS__/jquery.dataTables.min.css">-->
+    <link rel="stylesheet" type="text/css" href="../../../../../Public/Home/css/jquery.dataTables.css"/>
+    <link rel="stylesheet" type="text/css" href="__CSS__/finance.css"/>
+    <script type="text/javascript" src="__JS__/jquery.js" ></script>
+    <script src="__JS__/base.js"></script>
+    <style>
+        .ul_head li,dt{
+             /*width: 16%!important;*/
+             text-align: center;
+        }
+    </style>
+</head>
+<body>
+<include file="Public:header"/>
+
+<main>
+
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="{:U('Index/index')}">首页</a></li>
+            <li><a href="{:u('Property/finance')}">财务中心</a></li>
+            <li class="active">
+                <span>委托管理</span>
+            </li>
+        </ol>
+    </div>
+
+    <div class="container center_content">
+      
+        <include file="Public:finance_left"/>
+
+        <div class="pull-right finance-content">
+            <div class="big_title">
+                <h4>奖金明细</h4>
+                <div class="clearfix"></div>
+            </div>
+
+            <!--<div class="currency-type form-group">
+
+                <div class="finance-mark">
+
+                    <div class="total-assets">
+                        <strong>已转入余额：</strong><span class="money">￥{$release.number}</span>
+                    </div>
+
+                </div>
+
+                <div class="finance-mark">
+
+                    <div class="total-assets">
+                        <strong>已转入重消：</strong><span class="money">￥{$release.repeats}</span>
+                    </div>
+
+                </div>
+
+                <form action="" method="post" class="form-inline">
+
+                    <div class="form-group">
+                        <input type="text" name="date" value="{:I('date')}"  readonly="readonly"  class="text form-control" id="date_start" />
+                        至 <input type="text" name="dates" value="{:I('dates')}" readonly="readonly" class="text form-control" id="date_end" />
+                        <input type="submit" value="查询" class="form-control">
+                    </div>
+                </form>
+            </div>-->
+            <!--<div class="currency-record-hint">财务明细</div>-->
+           <table id="example" class="display" cellspacing="0" width="100%">
+		        <thead>
+		            <tr>
+		            	<td>#</td>
+	                    <td>会员编号</td>
+	                    <td>姓名</td>
+	                    <td>静态分红</td>
+	                    <td>直推奖</td>
+	                    <td>经理奖</td>
+	                    <td>极差奖</td>
+	                    <td>奖金</td>
+	                    <td>种子</td>
+	                    <td>扣税</td>
+	                    <td>总计</td>
+	                    <td>计算日期</td>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr>
+            			<td>1</td>
+                        <td>CM7777</td>
+                        <td>777</td>
+                        <td>10.00</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>13.00</td>
+                        <td>5.98</td>
+                        <td>.7</td>
+                        <td>20.00</td>
+                        <td>2018-3-26 14:12:13</td>
+		            </tr>
+		        </tbody>
+		   </table>
+		   
+		    <!--<div class="financeBox">
+                <ul class="financeBoxUl">
+                    <li>#</li>
+                    <li>会员编号</li>
+                    <li>姓名</li>
+                    <li>静态分红</li>
+                    <li>直推奖</li>
+                    <li>经理奖</li>
+                    <li>极差奖</li>
+                    <li>奖金</li>
+                    <li>种子</li>
+                    <li>扣税</li>
+                    <li>总计</li>
+                    <li>计算日期</li>
+                </ul>
+            </div>
+            <div class="financeBox2">
+                <ul>
+                    <eq name="data" value="">
+                        <li>
+                            <dl style="text-align: center;line-height: 30px;font-size: 15px">oh 还没有内容！</dl>
+                        </li>
+                    </eq>
+                    <li>
+                        <foreach>
+                            <dl class="ul_head">
+                                <dt>1</dt>
+                                <dt>CM7777</dt>
+                                <dt>777</dt>
+                                <dt>10.00</dt>
+                                <dt>0</dt>
+                                <dt>0</dt>
+                                <dt>0</dt>
+                                <dt>13.00</dt>
+                                <dt>5.98</dt>
+                                <dt>.7</dt>
+                                <dt>20.00</dt>
+                                <dt>2018-3-26 14:12:13</dt>
+                            </dl>
+                        </foreach>
+                    </li>
+                </ul>
+            </div>-->
+            <div class="page">
+                {$page}
+            </div>
+            
+        </div>
+    </div>
+</main>
+
+<include file="Public:footer"/>
+
+<script type="text/javascript" src="/Public/Home/js/jquery.ui.js"></script>
+<script src="__JS__/center_left.js"></script>
+<script src="__JS__/date_picker.js"></script>
+<script type="text/javascript" src="__JS__/finance_comm.js" ></script>
+<!--<script type="text/javascript" src="__JS__/jquery.dataTables.min" ></script>-->
+<script type="text/javascript" src="../../../../../Public/Home/js/jquery.dataTables.min.js" ></script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+        $('#example').DataTable({
+//      	"data":tbody1,
+			"searching" : false,
+			"paging":   false,//分页器
+			"ordering": false,//选择竖
+			"info":     false,//下方显示第几页
+        });
+    });
+</script>
+
+</body>
+
+</html>
