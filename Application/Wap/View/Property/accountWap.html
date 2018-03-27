@@ -8,24 +8,107 @@
 		<title></title>
 		<link rel="stylesheet" href="__CSS__/base.css" />
 		<link rel="stylesheet" href="__CSS__/personage.css" />
-		<link rel="stylesheet" type="text/css" href=" ../../../../Public/Home/css/cart/query.dataTables.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../../Public/Home/css/jquery.dataTables.css"/>
 		<script type="text/javascript" src="__JS__/jquery-1.12.3.min.js" ></script>
 		<script type="text/javascript" src="__JS__/fastclick.js" ></script>
 		<script type="text/javascript" src="__JS__/base.js" ></script>
 		<script type="text/javascript" src="__JS__/personage.js" ></script>
 		<script type="text/javascript" src="../../../../Public/Home/js/jquery.dataTables.min.js"></script>
+		<style type="text/css">
+			.financeTop{
+				width: 100%;
+				height: 40px;
+				box-shadow: ;
+				text-align: center;
+				background: #fff;
+				color: #000;
+				position: relative;
+				/*position: fixed;*/
+				top: 0px;
+				z-index: 20;
+				border-bottom: 1px #eee solid;
+				max-width: 640px;
+			}
+			.financeTop .financeTop-left{
+				display:inline-block;
+				position: absolute;
+				left: 15px;
+				top: 0px;
+				color: #000;
+				font-size: 15px;
+				line-height: 40px;
+			}
+			.financeTop-left img{
+				width: 12px;
+				height: 22px;
+				vertical-align: -6px;
+			}
+			.financeTop h2{
+				font-size: 17px;
+				font-weight: 500;
+				display: inline-block;
+				line-height: 41px;
+			}
+			.financeTop .financeTop-right{
+				position: absolute;
+				right: 15px;
+				line-height: 40px;
+				top: 0px;
+				box-sizing: border-box;
+			}
+			.financeTop  .financeTop-right img{
+				width: 20px;
+				height: 20px;
+				margin-top: 10px;
+			}
+		</style>
 	</head>
 	<body class="backgroundf6">
-		<header class="top">
-			<a class="top-left" id="back">
+		<header class="financeTop">
+			<a class="financeTop-left" id="back">
 				<img src="__IMG__/back.png"/>
 				<span>返回</span>
 			</a>
 			<h2>账户明细</h2>
 		</header>
-		<section class="currency">
-			
-		</section>
+			<table id="example" class="display" cellspacing="0" width="100%" style="margin-top: 1rem;">
+		        <thead>
+		            <tr>
+		            	<td>#</td>
+	                    <td>账号</td>
+	                    <td>时间</td>
+	                    <td>改变量</td>
+	                    <td>改变后余额</td>
+	                    <td>奖金奖励</td>
+	                    <td>备注</td>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr>
+            			<td>1</td>
+                        <td>CM7777</td>
+                        <td>777</td>
+                        <td>10.00</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+		            </tr>
+		        </tbody>
+		   </table>
 		<include file="Public:footer" />
+	
 	</body>
+	<script type="text/javascript">
+		$(document).ready(function(){
+        $('#example').DataTable({
+//      	"data":tbody1,
+			"searching" : false,
+			"paging":   false,//分页器
+			"ordering": false,//选择竖
+			"info":     false,//下方显示第几页
+			"sScrollY": "600px",//Y轴滑动
+			"sScrollX": "800px",//X轴滑动
+        });
+    });
+	</script>
 </html>
