@@ -91,11 +91,15 @@
 		            </tr>
 		        </thead>
 		        <tbody>
-		            <tr>
-            			<td>姓名</td>
-                        <td>10000.00</td>
-                        <td>2018-3-27 14:58:33</td>
-		            </tr>
+
+                <foreach name="list" item="vo" >
+                        <tr>
+                            <td>{$vo.users}</td>
+                            <td>{$vo.money}</td>
+                            <td>{:date('Y-m-d',$vo['time'])}</td>
+                        </tr>
+                </foreach>
+
 		        </tbody>
 		   </table>
 		   

@@ -1560,6 +1560,7 @@ class PropertyController extends HomeController {
             $data = $usersModel->is_child($user);
 
             if ($data){
+                $usersModel->startTrans();
                 try{
                     #修改我自己的账户
                     $userpropertyModel = new UserpropertyModel();
@@ -1585,9 +1586,10 @@ class PropertyController extends HomeController {
                     if (!$back){
                         throw new Exception('转账流水生成失败！');
                     }
-
+                    $usersModel->commit();
                     $this->success('转账成功！');
                 }catch (\Exception $e){
+                    $usersModel->rollback();
                    return $this->error('转账失败！错误信息：'.$e->getMessage());
                 }
 
@@ -1603,6 +1605,29 @@ class PropertyController extends HomeController {
         $this->assign('money',$money);
         $this->display();
     }
+
+    /**
+     * 转账记录
+     */
+
+    function transferRecord(){
+        $accounts_m = M('accounts');
+
+        $count = $accounts_m->where(['user_id'=>session('user.id')])->count();
+
+        $page = new Page($count,15);
+
+        $show = $page->show();
+
+        $list = $accounts_m->where(['currency_accounts.user_id'=>session('user.id')])->field('currency_accounts.*,currency_users.users')
+                    ->join(' left join currency_users on currency_users.id = currency_accounts.accept_id')->limit($page->firstRow,$page->listRows)->select();
+
+        $this->assign('list',$list);
+        $this->assign('page',$show);
+        $this->display();
+
+    }
+
 
     /**
      * @return mixed
