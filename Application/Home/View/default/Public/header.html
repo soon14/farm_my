@@ -17,13 +17,13 @@
 
 <link rel="stylesheet" href="__ALERT__/qiwen_popup.css"/>
 <link rel="stylesheet" href="__CSS__/headersession.css"/>
+<link rel="stylesheet" href="__CSS__/reveal.css" />
 <nav>
-
     <div class="container">
         <div class="logo pull-left" ><a href="{:U('Index/Index')}"><img src="__IMG__/base_images/xqqkl_logo.png" alt="logo" style="height: 54px!important;"></a></div>
         <ul class="nav text-nowrap" id="nav">
             <li <eq name='CONTROLLER_NAME' value='Index'>class="selected"<else/>class="similar"</eq>><a href="{:U('Index/Index')}" data-text="首页">首页</a></li>
-            <li <eq name='CONTROLLER_NAME' value='Trade'>class="selected"<else/>class="similar  trade"</eq>><a href="{:U('Trade/buy')}" class="trade_centre" data-text="交易中心">交易中心</a></li>
+            <li <eq name='CONTROLLER_NAME' value='Trade'>class="selected"<else/>class="similar showTk  trade"</eq>><a href="#" class="trade_centre" data-text="交易中心">交易中心</a></li>
             <li <eq name='CONTROLLER_NAME' value='Property'>class="selected"<else/>class="similar showlock property"</eq>><a href="{:U('Property/finance')}"  class="property_centre" data-text="财务中心">财务中心</a></li>
             <li <eq name='CONTROLLER_NAME' value='Safety'>class="selected"<else/>class="similar showlock safety"</eq>><a href="{:U('Safety/safeCenter')}" class="safe_centre" data-text="安全中心">安全中心</a></li>
             <li <eq name='CONTROLLER_NAME' value='index'>class="selected"<else/>class="similar showlock safety"</eq>><a href="{:U('Datacheck/data')}" class="data" data-text="数据核对">数据核对</a></li>
@@ -76,6 +76,34 @@
     <!--</form>-->
 </nav>
 <div id="lock_screen"></div>
+
+<!--<div id="showTk" class="ajaxlogin_form" style="display: none">
+    <h5>请先登录 <span class="glyphicon glyphicon-remove" id="enter_form_close"></span></h5>
+    <div class="user_enter">
+        
+    </div>
+</div>-->
+
+ <!--<div id="showTk" style="width:100%; height:100%;left:0;top:0; position:fixed;background:rgba(0,0,0,0.3)">
+ 
+    <div class="point">
+        <div class="pop"></div>
+    </div>
+</div>-->
+<div id="showTk" style="width: 27rem;height: 15rem;border: 1px solid black;border-radius: 15px;position: fixed;z-index: 9999;left: 35%;top: 30%;background-color: white;display:none;">
+	<div class="showHeadBox">
+		<button class="showHeadBtn" id="CloseTk">关闭</button>
+	</div>
+	<div class="showFontBox">
+		<p>转移资产到OTC平台</p>
+	</div>
+	<div class="showBtn">
+		<a href="{:U('Property/assetTransfer?tag=13')}"><button class="showBtn1">转移</button></a>
+		<a href="{:U('Trade/buy')}"><button class="showBtn2">跳过</button></a>
+	</div>
+</div>
+
+
 <form action="{:U('Index/login')}" id="enter_form_lock" class="ajaxlogin_form" method="post" style="display: none" role="form" onsubmit="return false">
     <h5>请先登录 <span class="glyphicon glyphicon-remove" id="enter_form_close"></span></h5>
     <div class="user_enter">
@@ -99,10 +127,12 @@
             href="{:U('Register/Register')}">免费注册</a></span>
     </div>
 </form>
+
 <script src="__JS__/jquery.js"></script>
 <script type="text/javascript" src="__ALERT__/ajax.form.js"></script>
 <script type="text/javascript" src="__ALERT__/qiwen_popup.js"></script>
 <script type="text/javascript" src="__JS__/ifsession.js"></script>
+<script type="text/javascript" src="__JS__/jquery.reveal.js"></script>
 <script type="text/javascript">
     $(function () {
         var locks=$('#right').val();
@@ -181,6 +211,12 @@
                 }
             });
         }
+    });
+     $(".showTk").click(function () {
+        $("#showTk").show();
+    });
+    $("#CloseTk").click(function () {
+        $("#showTk").hide();
     });
 </script>
 <script>
