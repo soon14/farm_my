@@ -111,6 +111,7 @@ class UserpropertyModel extends Model{
 
         }
 
+
 		#锁死用户资产，并且返回用户资产信息
 		$money_back = $this->getUserMoneyAll($userid,$xnb_data['brief']);
 

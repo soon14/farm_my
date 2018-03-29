@@ -99,7 +99,7 @@
                             <td>{$vo.users}</td>
                             <td>{$vo.money}</td>
                             <td>{:date('Y-m-d',$vo['time'])}</td>
-                            <td>{:($vo['user_id']==session('user.id') ? '装出':'转入')}</td>
+                            <td>{:($vo['user_id']==session('user.id') ? '转出':'转入')}</td>
                         </tr>
                 </foreach>
 

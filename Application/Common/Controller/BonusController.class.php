@@ -19,6 +19,8 @@ class BonusController extends Controller
 
     private $user= [];
 
+    private $cmc_price;
+
     private $register = 0;
 
     private $cfg=[];
@@ -30,6 +32,14 @@ class BonusController extends Controller
     private $child_id;
 
     private $order;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $CmcpriceController = new CmcpriceController();
+        $this->cmc_price=$CmcpriceController->getPrice();
+    }
 
     /**
      * @return mixed
@@ -244,7 +254,7 @@ class BonusController extends Controller
 
            $money = $this->money * $percentage/100;
 
-           $back = $userpropertyModel->setChangeMoney(1,$money,$this->user['id'],'红包分成',2);
+           $back = $userpropertyModel->setChangeMoney(5,$money/$this->cmc_price,$this->user['id'],'红包分成',2);
 
            if (!$back){
                $this->error = $userpropertyModel->getError();
@@ -256,6 +266,7 @@ class BonusController extends Controller
                 'user_id'=>$this->user['id'],
                 'child_id'=>$this->child_id,
                 'number'=>$money,
+                'number_cmc'=>$money/$this->cmc_price,
                 'order'=>$this->order,
                 'type'=>1,
                 'time'=>time()

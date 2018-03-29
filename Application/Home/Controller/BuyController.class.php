@@ -192,7 +192,10 @@ class BuyController extends HomeController {
                 -> where("time >= ". $time. " AND user_id = ". session("user")['id']. " AND method = ". $method. " AND product_type = ". $data['product_type'])
                 -> find();
 
-            
+            $count_all = M("shop_order")
+                -> field("sum(number) as count")
+                -> where(" user_id = ". session("user")['id']. " AND method = ". $method. " AND product_type = ". $data['product_type'])
+                -> find();
             if ($method == 1) {
                 $method_cn = "余额支付";
                 $key = "cny";
@@ -208,6 +211,11 @@ class BuyController extends HomeController {
                 -> where(['key' => $key])
                 -> find();
             if ($count['count'] != NULL) {
+
+                if ($count_all['count']>100){
+                    return $this -> error("您已超过最大红包限购量100");
+                }
+
                 if ($count['count'] >= $cfg['data']) {
                     $this -> error("今日购买红包次数已用完");
                     exit();
@@ -530,6 +538,7 @@ class BuyController extends HomeController {
                 } else {
                     $res = $bonus_m -> add($data);
                     if ($res) {
+
                         $dis = $this -> distribution($bonus_dis, $price['id'], $price['pid'], $price['price'], $price['order']);
                         if ($dis != true) {
                             $bonus_m -> rollback();
@@ -593,6 +602,7 @@ class BuyController extends HomeController {
 //红包分销
      function distribution($bonus_dis, $id, $pid, $price, $order) {
         $bonus_dis -> setUser(['id' => $id, 'pid' => $pid]);
+
         $bonus_dis -> setMoney($price);
         $bonus_dis -> setOrder($order);
         $res_dis = $bonus_dis -> getParent();

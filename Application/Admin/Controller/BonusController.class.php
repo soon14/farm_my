@@ -133,17 +133,18 @@ class BonusController extends AdminController
 
         $page = new Page($count,15);
 
-        $page = $page->show();
+        $show = $page->show();
 
         $data = $bonus_deduct_m ->where($where)
                                 ->field('pu.users as puser,cu.users as cuser,currency_bonus_deduct.*')
                                 ->join('left join currency_users as pu on pu.id = currency_bonus_deduct.user_id')
                                 ->join('left join currency_users as cu on cu.id = currency_bonus_deduct.child_id')
                                 ->order('currency_bonus_deduct.time desc')
+                                ->limit($page->firstRow,$page->listRows)
                                 ->select();
 
 
-        $this->assign('page',$page);
+        $this->assign('page',$show);
         $this->assign('data',$data);
 
         $this->display();
