@@ -86,7 +86,7 @@
            <table id="example" class="display" cellspacing="0" width="100%">
 		        <thead>
 		            <tr>
-		            	<td>转账账户</td>
+		            	<td>收款人</td>
 	                    <td>金额</td>
 	                    <td>时间</td>
 	                    <td>状态</td>
@@ -99,7 +99,7 @@
                             <td>{$vo.users}</td>
                             <td>{$vo.money}</td>
                             <td>{:date('Y-m-d',$vo['time'])}</td>
-                            <td>{:($vo['user_id']==session('user.id') ? '转入':'转入')}</td>
+                            <td>{:($vo['user_id']==session('user.id') ? '装出':'转入')}</td>
                         </tr>
                 </foreach>
 

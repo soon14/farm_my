@@ -50,6 +50,10 @@ body{
 	background-position-y: -460px;
 }
 
+#finance_list li:nth-of-type(14) a{
+	background-position-y: -499px;
+}
+
 #finance_list li:first-child.selected a,#finance_list li:first-child a:hover{
 	background-position-y: 0;
 }
@@ -89,6 +93,10 @@ body{
 }
 #finance_list li:nth-of-type(13).selected a,#finance_list li:nth-of-type(12) a:hover{
 	background-position-y: -154px;
+}
+
+#finance_list li:nth-of-type(14).selected a,#finance_list li:nth-of-type(12) a:hover{
+	background-position-y: -192px;
 }
 /*#finance_list li a{
 	color: #333;
