@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="__CSS__/bootstrap.min.css">
     <link rel="stylesheet" href="__CSS__/bae.css">
     <link rel="stylesheet" href="__CSS__/index.css">
+    <link rel="stylesheet" href="__CSS__/finance.css"/>
     <!--[if lt IE 9]>
     <script src="__JS__/html5shiv.min.js"></script>
     <script src="__JS__/respond.min.js"></script>
@@ -437,6 +438,66 @@
             <!--</div>-->
         <!--</div>-->
     <!--</div>-->
+    <!--<div class="">
+    	<div class="">
+    		
+    	</div>
+    </div>-->
+    			<div class="notice_tip" id="first_tip">
+					<h5><span class="glyphicon glyphicon-bell"></span>关于系统升级的通知</h5>
+					<!--<ul>
+						<li>各位会员</li>
+						<li>文本内容</li>
+						<li>文本内容</li>
+					</ul>-->
+					<div class="textContent">
+						<p>各位会员：</p>
+						<p style="text-indent:2em;">为了更好的服务会员，系统将于2018年3月29日21时30分至23时30分系统升级。系统升级期间，将不能登陆。</p>
+						<p style="text-indent:2em;">系统升级后将实现以下功能：</p>
+						<p>1.系统升级后将把现在重销账户中的资产一次性转移到余额账户</p>
+						<p>2.财务中心中将设置奖金明细。</p>
+						<p style="text-indent:2em;">
+							<span style="font-weight:bold;">您的总资产：</span>
+							 总资产包含持有虚拟币的价值,会随各个币种最新成交价变动。
+						</p>
+						<p style="margin-left:2em;color: red;line-height: 2em;">
+							养羊分红包每天产生的70%部分+推荐奖（三级分销推荐奖+级差奖+经理奖）+转入资产账户+养羊分红包每天产生的30%部分。
+						</p>
+						<p style="text-indent:2em;">
+							<span style="font-weight:bold;">今日CMC1价格：</span>
+							 ￥2.5 。每日系统显示CMC1成交价格。
+						</p>
+						<p style="text-indent:2em;">
+							<span style="font-weight:bold;">转入资产账户：：</span>
+							 <span style="color: red;"> 这个账户的资产将会每天1%释放到余额账户。</span>
+						</p>
+						<p style="text-indent:2em;">
+							<span style="font-weight:bold;">余额账户：：</span>
+							 <span style="color: red;"> 养羊分红包每天产生的70%部分+推荐奖（三级分销推荐奖+级差奖+经理奖）+转入资产账户每天释放1%部分。</span>
+						</p>
+						<p style="text-indent:2em;">
+							<span style="font-weight:bold;">重销账户：：</span>
+							 <span style="color: red;"> 养羊分红包每天产生的30%部分。</span>
+						</p>
+						<p style="text-indent:2em;">
+							<span style="font-weight:bold;">奖金账户(已转入余额账户)：：</span>
+							 <span style="color: red;"> 可以查看明细。推荐奖（三级分销推荐奖+级差奖+经理奖）。</span>
+						</p>
+						<p>3、认购羊的流程变化。在系统首页选择草原羊认购中的认购羊。余额账户支付每天可以购买6只，重销账户支付每天可以购买1只。总额不超过100只。</p>
+						<p>4、会员转账有变化。2018年4月9日前，可以把账户余额中的资产向下转账。转账后进入转入账户的余额账户中。
+如有问题请联系025-85630810。</p>
+						<p style="text-align: right;">华联可溯商业管理（北京）有限公司</p>
+						<p style="text-align: right;">2018年3月29日</p>
+
+						
+							
+							
+							
+						<!--<span id="first_tip_close">5s</span></p>-->
+					</div>
+					
+				</div>
+
 
 </main>
 
@@ -485,6 +546,28 @@
         foreground : "#000000",        //二维码的前景色
         src: '/Public/Home/images/base_images/ewm-top.jpg'             //二维码中间的图片
     });
+    var t = 10,time_set=null;
+
+    //显示倒数秒数
+    function showTime(){
+        if(t>=1){
+            t -= 1;
+            document.getElementById('first_tip_close').innerHTML= t+"s";
+		}
+        if(t==0){
+            $("#first_tip").hide();
+            $("#after_tips").show();
+//          document.getElementById('first_tip_close').innerHTML= "<a href=\'{:U(\'Safety/cardManage?tag=5\')}\'><i class=\'glyphicon glyphicon-plus\'></i>添加银行卡</a>";
+        }
+        //每秒执行一次,showTime()
+        time_set=setTimeout("showTime()",1000);
+    }
+    //执行showTime()
+//  showTime();
+
+	function newweb() {
+		window.location.reload();
+	}
 </script>
 <!--<script type="text/javascript" src="__ECHERT__/Kxiantu.js"></script>-->
 </body>

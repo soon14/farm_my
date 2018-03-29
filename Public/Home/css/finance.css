@@ -1766,3 +1766,70 @@ width: 97%;
 .financeBox ul .entrust-column-num{
 	width: 19%;
 }
+/*首页提示框*/
+.notice_tip{
+	/*overflow:scroll;*/
+	overflow:auto;
+	width: 80%;
+	height: 800px;
+	/*background-color: rgba(82, 81, 81, 0.9);*/
+	/*padding: 60px 120px 80px 120px;*/
+	background-color: white;
+	border: 1px solid black;
+	border-radius: 15px;
+	position: fixed;
+	z-index: 9999;
+	top: 50px;
+	left: 10%;
+}
+.notice_tip h5{
+	font-size: 20px;
+	color: #FA4223;
+	margin-top: 30px;
+	text-align: center;
+}
+/*.recharge_tip h5 span{
+	padding-right: 5px;
+}*/
+.textContent{
+	width: 600px;
+	margin: 0 auto;
+}
+/*.notice_tip ul li{
+	list-style-type: decimal;
+	color: #f9f9f9;
+	margin-left: 50px;
+	line-height: 23px;
+}*/
+.notice_tip p{
+	text-align: center;
+	margin-top: 30px;
+}
+/*.notice_tip p span{
+	display: inline-block;
+	background-color: #FA4223;
+	width: 160px;
+	color: white;
+	box-shadow: 1px 2px 2px #666666;
+	padding: 6px 0;
+	border-radius: 8px;
+}*/
+.notice_tip p a{
+	color: white;
+}
+.notice_tip p a:hover{
+	text-decoration: none;
+}
+.rmb_content{
+	position: relative;
+}
+
+
+.textContent{
+	overflow：auto;	
+}
+
+.textContent p{
+	/*color: white;*/
+	text-align: left;
+}
