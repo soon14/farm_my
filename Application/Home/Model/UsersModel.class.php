@@ -22,7 +22,7 @@ class UsersModel extends Model
 
     function is_child($user){
 
-        $users = M('users')->field('id,username,pid')->where(['users'=>$user])->find();
+        $back =$users = M('users')->field('id,username,pid')->where(['users'=>$user])->find();
 
         while (true){
 
@@ -37,7 +37,7 @@ class UsersModel extends Model
             if ($data['id'] == session('user.id')){
                 $data['username'] = $data['username'] ? $data['username']:'**';
 
-                return $users;
+                return $back;
                 break;
             }
 

@@ -107,6 +107,15 @@ class PropertyController extends HomeController {
         $Cmcprice = new CmcpriceController();
         $this->assign('cmcprice',$Cmcprice->getPrice());
 
+
+        #红包提成的总数
+        $bonus_deduct_m = M('bonus_deduct');
+
+        $number = $bonus_deduct_m->field('sum(number) as number')->where(['user_id'=>session('user.id')])->find();
+
+        $this->assign('number_bonus',$number['number']);
+
+
         $this->assign('repeat_money',floatval($repeat_money)); //红包重销
         $this->assign('repeats',floatval($repeats)); //卖币重销账户
         $this->assign('xnb_data',$xnb_data);
@@ -1549,7 +1558,7 @@ class PropertyController extends HomeController {
 
     function transfer_accounts(){
 
-        $money  = M('userproperty')->field('repeat_money')->where(['userid'=>session('user.id')])->find();
+        $money  = M('userproperty')->field('cny')->where(['userid'=>session('user.id')])->find();
         if (IS_POST){
             $user = I('user');
             $number = I('number');
@@ -1564,14 +1573,14 @@ class PropertyController extends HomeController {
                 try{
                     #修改我自己的账户
                     $userpropertyModel = new UserpropertyModel();
-                    $back = $userpropertyModel->setChangeMoney(3,$number,session('user.id'),'会员转账',1);
+                    $back = $userpropertyModel->setChangeMoney(1,$number,session('user.id'),'会员转账',1);
                     if (!$back){
                         throw new Exception($userpropertyModel->getError());
                     }
 
                     #修改下级账户
                     $userpropertyModel = new UserpropertyModel();
-                    $back = $userpropertyModel->setChangeMoney(3,$number,$data['id'],'会员转账',2);
+                    $back = $userpropertyModel->setChangeMoney(1,$number,$data['id'],'会员转账',2);
                     if (!$back){
                         throw new Exception($userpropertyModel->getError());
                     }

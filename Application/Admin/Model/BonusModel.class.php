@@ -59,20 +59,25 @@ class BonusModel extends Model
 
     /**
      * 发放功能,生成发放记录，并且添加已发放金额
-     * @param $id 购买期数id
-     * @param $number 本次发放的数量
-     * @param $all_id 发放期数的id
+     * @param $id 红包的id
+     * @param $number  发放的数量
+     * @param $that_revenue 税收金额
+     * @param $repeats 发放的重销
+     * @param $all_id 本次发放期数的id
+     * @param $provide 已经发放的总数（850）
+     * @param $cmc_price cmc的单价
+     * @return bool|mixed
      */
-    public function saveData($id,$number,$that_revenue,$repeats,$all_id,$provide){
+    public function saveData($id,$number,$that_revenue,$repeats,$all_id,$provide,$cmc_price){
 
-        $back = $this->where(['id'=>$id])->save(['provide'=>$number+$repeats+$provide,'send_time'=>date('Y-m-d',time())]);
+        $back = $this->where(['id'=>$id])->save(['provide'=>$number+$repeats+$provide+$that_revenue,'send_time'=>date('Y-m-d',time())]);
         if (!$back){
             return false;
         }
 
         $bonusListModel = new BonusListModel();
 
-        return $bonusListModel->addList($id,$number,$that_revenue,$repeats,$all_id);
+        return $bonusListModel->addList($id,$number,$that_revenue,$repeats,$all_id,$cmc_price);
 
     }
 

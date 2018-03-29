@@ -43,9 +43,9 @@ class BonusAllModel extends Model
     }
 
 
-    public function saveNullBonusAll($id,$number,$all_repeat){
+    public function saveNullBonusAll($id,$number,$all_repeat,$cmc_price){
 
-        return $this->where(['id'=>$id])->save(['number'=>$number,'repeats'=>$all_repeat]);
+        return $this->where(['id'=>$id])->save(['number'=>$number,'repeats'=>$all_repeat,'number_cmc'=>$number/$cmc_price,'repeats_cmc'=>$all_repeat/$cmc_price]);
 
     }
 

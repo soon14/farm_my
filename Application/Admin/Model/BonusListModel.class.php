@@ -19,15 +19,19 @@ class BonusListModel extends Model
     public $show;
     public $data;
     public $where_page;
+
     /**
-     * @param $all_id 发放期数的id
-     * @param $number 发放的cny
-     * @param $repeats 发放的重消
-     * @param $bonus_id  购买期数的id
+     * 红包发放流水
+     * @param $bonus_id 红包的id
+     * @param $number 发放的数量
+     * @param $that_revenue 税收金额
+     * @param $repeats 发放的重销
+     * @param $all_id 本次发放期数的id
+     * @param $cmc_price cmc的单价
      * @return mixed
      */
 
-    public function addList($bonus_id,$number,$that_revenue,$repeats,$all_id){
+    public function addList($bonus_id,$number,$that_revenue,$repeats,$all_id,$cmc_price){
 
         return $this->add([
                     'all_id'=>$all_id,
@@ -35,7 +39,10 @@ class BonusListModel extends Model
                     'repeats'=>$repeats,
                     'bonus_id'=>$bonus_id,
                     'revenue'=>$that_revenue,
-                    'time'=>time()
+                    'time'=>time(),
+                    'number_cmc'=>$number/$cmc_price,
+                    'repeats_cmc'=>$repeats/$cmc_price,
+                    'cmc_price'=>$cmc_price
                 ]);
     }
 

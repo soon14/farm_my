@@ -46,100 +46,137 @@
 					<h4>财务中心</h4>
 					<div class="clearfix"></div>
 				</div>
+
 				<div class="finance-mark">
 					<div class="total-assets">
-						<strong>您的总资产：</strong><span class="money">￥{$xnb_data['allpropertys']}</span>
-						<span class="total-assets-hint">（折合人民币）</span>
+						<strong>您的总资产：</strong><span class="money">{:round($xnb_data['allpropertys']/$cmcprice,2)}&nbsp;CMC1</span>
+						<span class="">（折合人民币 <span class="money">￥{$xnb_data['allpropertys']}</span>）</span>
 						<span id="info_question">
-							<img src="__IMG__/finance_images/icon_wen.png" alt="图标">
+							<!--<img src="__IMG__/finance_images/icon_wen.png" alt="图标">-->
 							<em>
 							总资产包含持有虚拟币的价值,会随各个币种最新成交价变动。
 							</em>
 						</span>
 
 					</div>
-					<!--<div>-->
-						<!--<strong>您的重消账户：</strong><span class="money">￥{$repeats}</span>-->
-					<!--</div>-->
+
 					<div>
 						<strong>今日CMC1价格：</strong><span class="money">￥{$cmcprice}</span>
 					</div>
 					<br>
+					<!--<div>-->
+						<!--<strong>您的重消账户：</strong><span class="money">￥{$repeats}</span>-->
+					<!--</div>-->
 					<div>
-					<strong>分红包转CMC1数量：</strong><span class="money">{:round($repeat_money/$cmcprice,2)} </span>(折合<span class="money">￥{$repeat_money}</span>)
-					</div>
-					<foreach name="xnb_data" item="vo">
-						<neq name="vo.marke" value="">
-							<ul class="finance-rmb">
-								<li class="finance-rmb-chunk">
-										<img src="{$vo.imgurl}"/>
-										<span>{$vo.xnb_name}({:strtoupper($vo['xnb_brief'])})</span>
-								</li>
-								<li class="finance-rmb-chunk">
-									<span>可用 : </span>
-									<span class="rmb-chunk-usable">&yen;<eq name="vo.property" value="">0.00<else/>{:floatval($vo['property'])}</eq></span>
-								</li>
-								<li  class="finance-rmb-chunk">
-									<span>冻结 : </span>
-									<span class="rmb-chunk-frost">&yen;<eq name="vo.property_clos" value="">0.00<else/>{$vo.property_clos}</eq></span>
-								</li>
-								<li  class="finance-rmb-chunk">
-									<span>总计 : </span>
-									<span>&yen;{:floatval(($vo['property']+$vo['property_clos']))}</span>
-								</li>
-							</ul>
-						</neq>
-					</foreach>
-				</div>
-				<div class="finance-mold">
-					<ul>
-						<li>产品</li>
-						<li>可用余额</li>
-						<li>冻结委托</li>
-						<li>锁定数量</li>
-						<li>总计</li>
-						<li>折合(￥)</li>
-					</ul>
-				</div>
-				<div class="finance-record">
-
-					<ul id="record_grey" style="display: none">
+						<strong>转入资产账户：</strong>
 						<foreach name="xnb_data" item="vo" >
 							<if condition="(($vo['xnb_id'] neq 1) and ($vo['xnb_id'] neq 2)) and ($vo['xnb_id'] neq 3) and ($vo['xnb_id'] neq NULL) ">
-							<li>
-								<dl>
-										<dd class="record-species">
-											<div class="record-img">
-												<img src="{$vo.imgurl}"/>
-											</div>
-											<div class="record-price">
-												<p><span>{$vo.xnb_name} <span class="name-small">({$vo.xnb_brief})</span></span></p>
-												<p>￥<eq name="vo.price" value="">0.00<else/>{:floatval($vo['price'])}</eq></p>
-											</div>
-										</dd>
-
-
-									<dt><eq name="vo.property" value="">0.00<else/>{:floatval($vo['property'])}</eq></dt>
-									<dt><eq name="vo.property_clos" value="">0.00<else/>{:floatval($vo['property_clos'])}</eq></dt>
-
-									<dt class="allmoney"><a title="详情"  href="" style="color: #424fc0">{:floatval($vo['memory']) ? floatval($vo['memory']) : '0.00'}</a></dt>
-
-									<dt class="allmoney">{:floatval($vo['property']+$vo['property_clos']+$vo['memory'])}</dt>
-
-									<dt><eq name="vo.allproperty" value="">0.00<else/>{:floatval($vo['allproperty'])}</eq></dt>
-
-									<dd class="to-deal">
-										<a ><input type="button" value="去交易" xnb="{$vo.xnb_id}" /></a>
-									</dd>
-
-								</dl>
-							</li>
+								<span class="money">{:floatval($vo['property']+$vo['property_clos']+$vo['memory'])} CMC1</span>(折合人民币<span class="money">￥{:floatval($vo['allproperty'])}</span>)
 							</if>
 						</foreach>
+					</div>
+					<br>
+					<div>
 
-					</ul>
+						<strong>余额账户：</strong>
+						<foreach name="xnb_data" item="vo">
 
-				</div>
+
+									<eq name="vo.xnb_brief" value="cny">
+										<span class="money">
+										{:round($vo['allproperty']/$cmcprice,2)}&nbsp;CMC1
+										</span>
+										(折合人民币<span class="money">￥{$vo.allproperty}</span>)
+									</eq>
+						</foreach>
+					</div>
+					<br>
+
+					<div>
+					<strong>重销账户：</strong><span class="money">{:round($repeat_money/$cmcprice,2)} CMC1</span>(折合人民币<span class="money">￥{$repeat_money}</span>)
+					</div>
+					<br>
+
+					<div>
+						<strong>奖金账户(已转入余额账户)：</strong>
+						<span class="money">{:round($number_bonus/$cmcprice,2)} CMC1</span>(折合人民币<span class="money">￥{:round($number_bonus,2)}</span>)
+						<a class="grandtotalde" style="color: red;font-size: 12px" href="{:U('Property/bonus_info',['number_bonus'=>$number_bonus, 'tag' => 6])}" target="_blank">&nbsp;&nbsp;&nbsp;&nbsp;查看明细</a>
+					</div>
+					<br>
+
+
+					<!--<foreach name="xnb_data" item="vo">-->
+						<!--<neq name="vo.marke" value="">-->
+							<!--<ul class="finance-rmb">-->
+								<!--<li class="finance-rmb-chunk">-->
+										<!--<img src="{$vo.imgurl}"/>-->
+										<!--<span>{$vo.xnb_name}({:strtoupper($vo['xnb_brief'])})</span>-->
+								<!--</li>-->
+								<!--<li class="finance-rmb-chunk">-->
+									<!--<span>可用 : </span>-->
+									<!--<span class="rmb-chunk-usable">&yen;<eq name="vo.property" value="">0.00<else/>{:floatval($vo['property'])}</eq></span>-->
+								<!--</li>-->
+								<!--<li  class="finance-rmb-chunk">-->
+									<!--<span>冻结 : </span>-->
+									<!--<span class="rmb-chunk-frost">&yen;<eq name="vo.property_clos" value="">0.00<else/>{$vo.property_clos}</eq></span>-->
+								<!--</li>-->
+								<!--<li  class="finance-rmb-chunk">-->
+									<!--<span>总计 : </span>-->
+									<!--<span>&yen;{:floatval(($vo['property']+$vo['property_clos']))}</span>-->
+								<!--</li>-->
+							<!--</ul>-->
+						<!--</neq>-->
+					<!--</foreach>-->
+				<!--</div>-->
+				<!--<div class="finance-mold">-->
+					<!--<ul>-->
+						<!--<li>产品</li>-->
+						<!--<li>可用余额</li>-->
+						<!--<li>冻结委托</li>-->
+						<!--<li>锁定数量</li>-->
+						<!--<li>总计</li>-->
+						<!--<li>折合人民币(￥)</li>-->
+					<!--</ul>-->
+				<!--</div>-->
+				<!--<div class="finance-record">-->
+
+					<!--<ul id="record_grey" style="display: none">-->
+						<!--<foreach name="xnb_data" item="vo" >-->
+							<!--<if condition="(($vo['xnb_id'] neq 1) and ($vo['xnb_id'] neq 2)) and ($vo['xnb_id'] neq 3) and ($vo['xnb_id'] neq NULL) ">-->
+							<!--<li>-->
+								<!--<dl>-->
+										<!--<dd class="record-species">-->
+											<!--<div class="record-img">-->
+												<!--<img src="{$vo.imgurl}"/>-->
+											<!--</div>-->
+											<!--<div class="record-price">-->
+												<!--<p><span>{$vo.xnb_name} <span class="name-small">({$vo.xnb_brief})</span></span></p>-->
+												<!--<p>￥<eq name="vo.price" value="">0.00<else/>{:floatval($vo['price'])}</eq></p>-->
+											<!--</div>-->
+										<!--</dd>-->
+
+
+									<!--<dt><eq name="vo.property" value="">0.00<else/>{:floatval($vo['property'])}</eq></dt>-->
+									<!--<dt><eq name="vo.property_clos" value="">0.00<else/>{:floatval($vo['property_clos'])}</eq></dt>-->
+
+									<!--<dt class="allmoney"><a title="详情"  href="" style="color: #424fc0">{:floatval($vo['memory']) ? floatval($vo['memory']) : '0.00'}</a></dt>-->
+
+									<!--<dt class="allmoney">{:floatval($vo['property']+$vo['property_clos']+$vo['memory'])}</dt>-->
+
+									<!--<dt><eq name="vo.allproperty" value="">0.00<else/>{:floatval($vo['allproperty'])}</eq></dt>-->
+
+									<!--<dd class="to-deal">-->
+										<!--<a ><input type="button" value="去交易" xnb="{$vo.xnb_id}" /></a>-->
+									<!--</dd>-->
+
+								<!--</dl>-->
+							<!--</li>-->
+							<!--</if>-->
+						<!--</foreach>-->
+
+					<!--</ul>-->
+
+				<!--</div>-->
 			</div>
 		</div>
 	</main>

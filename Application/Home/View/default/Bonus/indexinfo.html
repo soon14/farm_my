@@ -69,6 +69,8 @@
                     <li>序号</li>
                     <li>转入余额</li>
                     <li>转入重消</li>
+                    <li>税收</li>
+                    <li>cmc单价</li>
                     <li>转入时间</li>
                 </ul>
             </div>
@@ -83,8 +85,10 @@
                         <foreach name="data" item="vo">
                             <dl class="ul_head">
                                 <dt class="">{$vo['id']}</dt>
-                                <dt class="">{$vo['number']}</dt>
-                                <dt class="">{$vo['repeats']}</dt>
+                                <dt class="">{$vo['number_cmc']}</dt>
+                                <dt class="">{$vo['repeats_cmc']}</dt>
+                                <dt class="">{$vo['revenue']}</dt>
+                                <dt class="">{$vo['cmc_price']}</dt>
                                 <dt class="">{$vo.time|date='Y-m-d H:i:s',### }</dt>
                             </dl>
                         </foreach>

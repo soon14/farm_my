@@ -26,6 +26,7 @@ use Admin\Model\MemoryListModel;
 use Admin\Model\MemoryModel;
 use Admin\Model\RepeatCfgModel;
 use Admin\Model\XnbModel;
+use Common\Controller\CmcpriceController;
 use Common\Model\UsersModel;
 use Home\Model\UserpropertyModel;
 use  MongoDB\BSON\toJSON;
@@ -38,7 +39,7 @@ const COUNT = 1000;
 header("Content-Type:text/html;charset=utf-8");
 class ProvideApiController  extends Controller{
 
-
+    public $cmc_price;
 
     public function __construct()
     {
@@ -46,6 +47,8 @@ class ProvideApiController  extends Controller{
 //        if (empty(I('token')) || I('token')!=TOKEN){
 //            exit(TOKEN);
 //        }
+        $CmcpriceController = new CmcpriceController();
+        $this->cmc_price=$CmcpriceController->getPrice();
     }
 
 
@@ -133,7 +136,7 @@ class ProvideApiController  extends Controller{
 
 
                     #发放用户cny
-                    $back = $userproperty->setChangeMoney(1,$money,$v['user_id'],'红包分红',2);
+                    $back = $userproperty->setChangeMoney(1,$money/$this->cmc_price,$v['user_id'],'红包分红',2);
 
                     if (!$back){
                         throw new Exception($userproperty->getError());
@@ -141,13 +144,13 @@ class ProvideApiController  extends Controller{
 
 
                     #发放用户重消
-                    $back = $userproperty->setChangeMoney(3,$repeat_money,$v['user_id'],'红包分红',2);
+                    $back = $userproperty->setChangeMoney(3,$repeat_money/$this->cmc_price,$v['user_id'],'红包分红',2);
                     if (!$back){
                         throw new Exception($userproperty->getError());
                     }
 
                     #生成发放流水，并且修改本次已发放金额
-                    $back = $bonus_m->saveData($v['id'],$money,$that_revenue,$repeat_money,$nullBonusAll->getId());
+                    $back = $bonus_m->saveData($v['id'],$money,$that_revenue,$repeat_money,$nullBonusAll->getId(),$this->cmc_price);
                     if (!$back){
                         throw new Exception($userproperty->getError());
                     }

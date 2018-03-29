@@ -18,10 +18,21 @@ use  MongoDB\BSON\toJSON;
 use Think\Controller;
 use Think\Exception;
 use Think\Model;
+use Common\Controller\CmcpriceController;
 
 class BonussendController extends Controller
 {
+    public $cmc_price;
 
+    public function __construct()
+    {
+        parent::__construct();
+//        if (empty(I('token')) || I('token')!=TOKEN){
+//            exit(TOKEN);
+//        }
+        $CmcpriceController = new CmcpriceController();
+        $this->cmc_price=$CmcpriceController->getPrice();
+    }
 
     #红包的发放
     public function  bonus(){
@@ -108,7 +119,7 @@ class BonussendController extends Controller
 
 
                     #发放用户cny
-                    $back = $userproperty->setChangeMoney(1,$money,$v['user_id'],'红包分红',2);
+                    $back = $userproperty->setChangeMoney(1,$money/$this->cmc_price,$v['user_id'],'红包分红',2);
 
                     if (!$back){
                         throw new Exception($userproperty->getError());
@@ -116,13 +127,13 @@ class BonussendController extends Controller
 
 
                     #发放用户重消
-                    $back = $userproperty->setChangeMoney(3,$repeat_money,$v['user_id'],'红包分红',2);
+                    $back = $userproperty->setChangeMoney(3,$repeat_money/$this->cmc_price,$v['user_id'],'红包分红',2);
                     if (!$back){
                         throw new Exception($userproperty->getError());
                     }
 
                     #生成发放流水，并且修改本次已发放金额
-                    $back = $bonus_m->saveData($v['id'],$money,$that_revenue,$repeat_money,$nullBonusAll_id,$v['provide']);
+                    $back = $bonus_m->saveData($v['id'],$money,$that_revenue,$repeat_money,$nullBonusAll_id,$v['provide'],$this->cmc_price);
                     if (!$back){
                         throw new Exception($userproperty->getError());
                     }
@@ -133,7 +144,7 @@ class BonussendController extends Controller
 //            }
 
             #成功后修改本次发放总数
-            $back = $bonusAllModel->saveNullBonusAll($nullBonusAll_id,$all_money+$nullBonusAll_data['number'],$all_repeat+$nullBonusAll_data['repeats']);
+            $back = $bonusAllModel->saveNullBonusAll($nullBonusAll_id,$all_money+$nullBonusAll_data['number'],$all_repeat+$nullBonusAll_data['repeats'],$this->cmc_price);
             if ($back===false){
 
                 throw new Exception('发放失败！');
