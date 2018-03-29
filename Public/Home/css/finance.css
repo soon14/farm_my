@@ -993,7 +993,7 @@ font-weight: bold;
 }
 .entrust-column ul li{
 	float: left;
-	width: 9%;
+	width: 15%;
 	text-align: center;
 }
 .entrust-column ul li select{
@@ -1038,7 +1038,7 @@ font-weight: bold;
 	background-color: rgb(249,242,221);
 }
 .entrust-content ul li dl dt{
-	width: 9%;
+	width: 15%;
 	float: left;
 	font-weight: 500;
 	line-height: 36px;
@@ -1768,6 +1768,7 @@ width: 97%;
 }
 /*首页提示框*/
 .notice_tip{
+	display: none;
 	/*overflow:scroll;*/
 	overflow:auto;
 	width: 80%;
