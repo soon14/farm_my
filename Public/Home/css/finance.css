@@ -1,6 +1,6 @@
-body{
+/*body{
 	min-width: 990px;
-}
+}*/
 #finance_list li a{
 	background-image: url("/Public/Home/images/safe_center/coin_style_icon.png");
 	background-repeat: no-repeat;

@@ -609,6 +609,19 @@
 	};
 	
 	$(".noticeBox").scrollUnique();
+	
+	if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+		var x = 0;
+		var _left = 5;
+	   $(".noticeBox").width("90%")
+	   $(".noticeBox").height("1200px")
+//	   $(".noticeBox").style.left= x + "px";
+	   $(".noticeBox").css("left",_left+"%");
+	   
+	} else {
+	    console.log("电脑端")
+	}
+	
 </script>
 <!--<script type="text/javascript" src="__ECHERT__/Kxiantu.js"></script>-->
 </body>

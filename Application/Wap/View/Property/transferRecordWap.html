@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=1">
+		<meta name="format-detection" content="telephone=no,address=no">              
+		<title></title>
+		<link rel="stylesheet" href="__CSS__/base.css" />
+		<link rel="stylesheet" href="__CSS__/personage.css" />
+		<link rel="stylesheet" type="text/css" href="__CSS__/jquery.dataTables.css"/>
+		<script type="text/javascript" src="__JS__/jquery-1.12.3.min.js" ></script>
+		<script type="text/javascript" src="__JS__/fastclick.js" ></script>
+		<script type="text/javascript" src="__JS__/base.js" ></script>
+		<script type="text/javascript" src="__JS__/personage.js" ></script>
+		<script type="text/javascript" src="__JS__/finance_comm.js" ></script>
+		<script type="text/javascript" src="__JS__/jquery.dataTables.js" ></script>
+	</head>
+	<body class="backgroundf6">
+		<header class="top">
+			<a class="top-left" id="back">
+				<img src="__IMG__/back.png"/>
+				<span>返回</span>
+			</a>
+			<h2>转账记录</h2>
+		</header>
+		<section class="currency">
+			<table id="exampleWap" class="display" cellspacing="0" width="100%">
+		        <thead>
+		            <tr>
+		            	<td>收款人</td>
+	                    <td>金额</td>
+	                    <td>时间</td>
+	                    <td>状态</td>
+		            </tr>
+		        </thead>
+		        <tbody>
+					<foreach name="list" item="vo" >
+                        <tr>
+                            <td>{$vo.users}</td>
+                            <td>{$vo.money}</td>
+                            <td>{:date('Y-m-d',$vo['time'])}</td>
+                            <td>{:($vo['user_id']==session('user.id') ? '转出':'转入')}</td>
+                        </tr>
+                	</foreach>
+		        </tbody>
+		    </table>
+		</section>
+	</body>
+<script type="text/javascript">
+	$(document).ready(function(){
+        $('#exampleWap').DataTable({
+//      	"data":tbody1,
+			"searching" : false,
+//			"paging":   false,//分页器
+			"ordering": false,//选择竖
+			"info":     false,//下方显示第几页
+//			 "bLengthChange": true,
+        });
+    });
+</script>
+</html>

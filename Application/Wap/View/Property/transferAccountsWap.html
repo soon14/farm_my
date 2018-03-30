@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=1">
+		<meta name="format-detection" content="telephone=no,address=no">              
+		<title></title>
+		<link rel="stylesheet" href="__CSS__/base.css" />
+		<link rel="stylesheet" href="__CSS__/personage.css" />
+		<script type="text/javascript" src="__JS__/jquery-1.12.3.min.js" ></script>
+		<script type="text/javascript" src="__JS__/fastclick.js" ></script>
+		<script type="text/javascript" src="__JS__/base.js" ></script>
+		<script type="text/javascript" src="__JS__/personage.js" ></script>
+	</head>
+	<style>
+		.turnUl{
+			overflow: hidden;
+			width: 100%;
+			background-color: white;
+			/*margin: 2rem 0 0 2rem;*/
+			margin: 0 auto;
+			margin-top: 1rem;
+		}
+		.turnUl li{
+			width: 100%;
+			/*width: 10rem;*/
+			height: 2.5rem;
+			line-height: 2.7rem;
+		}
+		
+		.turnUl li p{
+			width: 30%;
+			float: left;
+			text-align: right;
+		}
+		
+		.turnUl li input,select{
+			float: right;
+			vertical-align:middle
+			box-sizing: border-box;
+		    /*font-size:1.4em;*/
+		    height:2em;
+		    margin-top: .4em;
+		    margin-right: 1em;
+		    border-radius:4px;
+		    border:1px solid #c8cccf;
+		    color:#6a6f77;
+		    -web-kit-appearance:none;
+		   -moz-appearance: none;
+		   display:block;
+		   outline:0;
+		   padding:0 1em;
+		   /*text-decoration:none;*/
+		   width:50%;
+		}
+		
+		.turnUl button{
+			border: 0;
+			width: 6rem;
+			height: 2rem;
+			position: relative;
+			left: 30%;
+		}
+		
+		.turnUl button{
+			border: 0;
+			width: 6rem;
+			height: 2rem;
+			position: relative;
+			left: 40%;
+			bottom:10%;
+			border-radius: 15px;
+		}
+		
+		.turnUl button:active {
+		    position:relative;
+		    top:1px;
+		}
+	</style>
+	<body class="backgroundf6">
+		<header class="top">
+			<a class="top-left" id="back">
+				<img src="__IMG__/back.png"/>
+				<span>返回</span>
+			</a>
+			<h2>会员转账</h2>
+		</header>
+		<section class="currency">
+			<ul class="turnUl">
+            		<li style="margin-top: 1rem;">
+            			<p>可用金额<span>*</span></p>
+            			<input type="text" id="money"  value="{$money.repeat_money}" disabled="disabled" style="color: red"/>
+            		</li>
+                    <li>
+            			<p>接收人账户<span>*</span></p>
+            			<input type="text" name="user" id="user" value="" placeholder="请输入接收人账号（下级账户）"/>
+            		</li>
+            		<li>
+            			<p>接收人姓名<span>*</span></p>
+            			<input type="text" id="name" value="" disabled="disabled" placeholder="接收人姓名"/>
+            		</li>
+            		<li>
+            			<p>转账金额<span>*</span></p>
+            			<input type="text" name="number" id="number" value="" placeholder="请输入转账金额"/>
+            		</li>
+            		<!--<li>-->
+            			<!--<p>二级密码<span>*</span></p>-->
+            			<!--<input type="text" name="" id="" value="" placeholder="请输入二级密码"/>-->
+            		<!--</li>-->
+            		<li >
+            			<button  type="submit">确认转账</button>
+            		</li>
+            		<li>
+            				<a style="position: relative;left: 46%;" href="{:U('Property/transferRecordWap')}">转账记录</a>
+            		</li>
+            		
+            	</ul>
+		</section>
+		<include file="Public:footer" />
+	</body>
+</html>
