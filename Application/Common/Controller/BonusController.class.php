@@ -172,6 +172,9 @@ class BonusController extends Controller
             $this->child_id = $this->user['id'];
 
             $i = 0;
+            #判断津贴是否已经发放
+            $status = true;
+
             while (true){
 
                 $i++;
@@ -186,6 +189,8 @@ class BonusController extends Controller
 
                 #直推人数
                 $countChild = $UsersModel->countChild($this->user['id']);
+                #团队人数
+                $countChild_all = $Parent['team'];
 
                 #红包提成,配置项必须正确才进入流程
                 if (is_array($deduct) && !empty($deduct)){
@@ -207,19 +212,23 @@ class BonusController extends Controller
                     break;
                 }
 
-                #红包津贴,配置项必须正确才进入流程
-//                if (is_array($subsidy) && !empty($subsidy)){
-//
-//                    $back = $this->subsidy($countChild,$UsersModel,$UserpropertyModel);
-//
-//                    if (!$back){
-//                        throw new Exception($this->getError());
-//                    }
-//                }
+                #判断管理津贴是否已经发放
+                if ($status){
+                    #红包津贴,配置项必须正确才进入流程
+                    if (is_array($subsidy) && !empty($subsidy)){
 
-//                if (empty($Parent['pid'])){
-//                    break;
-//                }
+                        $back = $this->subsidy($countChild,$UsersModel,$UserpropertyModel,$countChild_all,$status);
+
+                        if (!$back){
+                            throw new Exception($this->getError());
+                        }
+                    }
+                }
+
+                #如果父级的id为空 或者 管理津贴，红包提成都已发放则退出循环
+                if ( empty($Parent['pid']) || ($status==false&&$i>=$count) ){
+                    break;
+                }
 
             }
 
@@ -240,6 +249,7 @@ class BonusController extends Controller
      * 红包提成
      * @param UserpropertyModel $userpropertyModel
      * @param $countChild 直推人数
+     * @param $countChild_all 团队人数
      * @return bool
      */
     public function bonus(UserpropertyModel $userpropertyModel ,$countChild ){
@@ -288,20 +298,32 @@ class BonusController extends Controller
 
     /**
      * 红包津贴
+     * @param $countChild  直推人数
+     * @param $countChild_all 团人数
+     * @param $status 判断是否满足条件，用于控制是否再次调用
+     * @param UsersModel $usersModel
+     * @param UserpropertyModel $userpropertyModel
+     * @return bool
      */
-    public function subsidy($countChild,UsersModel $usersModel,UserpropertyModel $userpropertyModel){
+    public function subsidy($countChild,UsersModel $usersModel,UserpropertyModel $userpropertyModel,$countChild_all,&$status){
 
         $number = 0;
 
-        $usersModel->countChild_all($this->user['id'],$number);
+        #获取团队人数
 
-        $percentage = $this->getNumpeople_all($countChild,$number);
+        /* 弃用该方法
+        $usersModel->countChild_all($this->user['id'],$number);
+        */
+        $this->countChild_all($countChild_all);
+
+        $percentage = $this->getNumpeople_all($countChild,$countChild_all);
 
         if ( $percentage){
+            #满足条件修改 状态为false 下一轮将不再发放管理津贴
+            $status = false;
 
             $money = $this->money*$percentage/100;
-
-            $back = $userpropertyModel->setChangeMoney(1,$money,$this->user['id'],'管理津贴',2);
+            $back = $userpropertyModel->setChangeMoney(C('award'),$money,$this->user['id'],'管理津贴',2);
 
             if (!$back){
                 $this->error = $userpropertyModel->getError();
@@ -331,6 +353,7 @@ class BonusController extends Controller
 
 
     /**
+     * 判断是否满足发放管理津贴的条件
      * @param $count 直推人数
      * @param $child_all 团队人数
      * @return bool

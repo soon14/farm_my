@@ -46,8 +46,8 @@
                     <td>{$vo.users}</td>
                     <td>{$vo.number}</td>
                     <td>{$vo.provide}</td>
-                    <td>{:($vo['out']-$vo['provide'])}</td>
-                    <td> {$vo.out}</td>
+                    <td>{:($vo['outs']-$vo['provide'])}</td>
+                    <td>{$vo.outs}</td>
                     <td>{:date('Y-m-d H:m:s',$vo['time'])}</td>
                 </tr>
             </volist>

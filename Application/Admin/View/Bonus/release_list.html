@@ -29,8 +29,11 @@
             <tr>
                 <th class="">编号</th>
                 <th class="">用户</th>
+                <th class="">cmc单价</th>
+                <th class="">余额</th>
+                <th class="">重销</th>
                 <th class="">税赋</th>
-                <th class="">实际发放</th>
+                <th class="">小计</th>
                 <th class="">发放时间</th>
 
             </tr>
@@ -40,7 +43,10 @@
                 <tr>
                     <td>{$vo.id}</td>
                     <td>{$vo.users}</td>
-                    <td>{$vo.revenue}</td>
+                    <td>{$vo.cmc_price}</td>
+                    <td>{$vo['number_cmc']}</td>
+                    <td>{$vo['repeats_cmc']}</td>
+                    <td>{$vo.revenue_cmc}</td>
                     <td>{$vo['number']+$vo['repeats']}</td>
                     <td>{:date('Y-m-d H:m:s',$vo['time'])}</td>
                 </tr>

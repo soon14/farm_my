@@ -38,7 +38,7 @@
             <volist name="data" id="vo">
                 <tr>
                     <td>{$vo.id}</td>
-                    <td>{:($vo['number']+$vo['repeats'])}</td>
+                    <td>{:($vo['number_cmc']+$vo['repeats_cmc'])}</td>
                     <td>{$vo.time| date='Y-m-d H:i:s',###}</td>
                     <td><a href="{:U('release_list',['id'=>$vo['id']])}">查看详情</a></td>
                 </tr>

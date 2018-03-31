@@ -8,6 +8,7 @@
 // +----------------------------------------------------------------------
 
 namespace Home\Controller;
+use Home\Model\UsersModel;
 use User\Api\UserApi;
 
 /**
@@ -20,7 +21,6 @@ class RegisterController extends HomeController {
         $code=$this->random(6,1);
         session("send_code",$code);
         $qcode=session('send_code');
-
         $area = M('area')->select();
         $this->assign('area',$area);
         $this->assign("code",$qcode);
@@ -152,7 +152,7 @@ class RegisterController extends HomeController {
        
     }
     function zhuce(){
-        $model=M('users');
+        $model= new UsersModel();
         $username=$this->strFilter(I('phone_num'));
         //登录密码
         $cipher_code=$this->strFilter(I('cipher_code'));
@@ -211,6 +211,9 @@ class RegisterController extends HomeController {
                             $addone['userid']=$redata;
                             $addone['username']=$detail[0]['users'];
                             $resultr=$wallet->add($addone);
+
+                            $model->team(['id'=>$redata,'pid'=>$data['pid']]);
+
                             if ($redata){
                                 session('user', array('user_name' => $username, 'password' => $data['password'], 'dealpwd' =>  $data['dealpassword'], 'id' => $redata,'agent'=>2, 'expire' => time() + 3600));
 //                                session('screennames',$rset[0]['screennames']);

@@ -112,6 +112,24 @@
 
         </div>
 
+        <div>
+            <div>
+                奖金日释放率: <input type="text" name="bonus_back" value="{:($data['bonus_back'] ? $data['bonus_back'] : 0)*100}" style="text-align: center;height: 30px;border-radius: 3px;border: 1px;">%
+            </div>
+
+            <br/>
+
+        </div>
+
+        <div>
+            <div>
+                余额日释放率: <input type="text" name="balance_back" value="{:($data['balance_back'] ? $data['balance_back'] : 0)*100}" style="text-align: center;height: 30px;border-radius: 3px;border: 1px;">%
+            </div>
+
+            <br/>
+
+        </div>
+
 
         <div>
             <input value="{$id}" name="id" type="hidden">

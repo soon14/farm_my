@@ -116,8 +116,10 @@ class UserpropertyModel extends Model{
 		$money_back = $this->getUserMoneyAll($userid,$xnb_data['brief']);
 
 		if(!$money_back['userid']){
+
 		    $this->error = '用户不存在！';
-			return false;		
+			return false;
+
 		}
 
 		$back = true;
