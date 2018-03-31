@@ -24,7 +24,7 @@ function formChange(element,selTitle,ChaTitle,chaDiv) {
             break;
     }
 }
-var phone=0;
+var phone=1;
 var oldpwd=0;
 var newpwd=0;
 var olddeal=0;
