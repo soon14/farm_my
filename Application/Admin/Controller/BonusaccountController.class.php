@@ -7,10 +7,12 @@
  */
 
 namespace Admin\Controller;
+use Admin\Model\AwardInfoModel;
 use Admin\Model\AwardModel;
 use Admin\Model\RepeatCfgModel;
 use Admin\Model\UserpropertyModel;
 use Think\Controller;
+use Think\Exception;
 
 /**
  * 奖金释放类
@@ -22,8 +24,9 @@ class Bonusaccount extends Controller
 
     #发放配置项
     private $cnfg;
-    #本次发放的金额
-    private $money_all;
+
+    #本次发放的总金额
+    private $awardall;
 
     public function __construct()
     {
@@ -40,27 +43,38 @@ class Bonusaccount extends Controller
         $UserpropertyModel =  new UserpropertyModel();
         $UserpropertyModel_h = new \Home\Model\UserpropertyModel();
         $AwardModel = new AwardModel();
+        $AwardInfoModel = new AwardInfoModel();
 
         $AwardModel->startTrans();
         try{
+            #获取本期释放的id
             $AwardModel->getNewAward();
 
+            $AwardInfoModel->setAllId($AwardModel->getIdMy());
             if (empty($data)){
 
-                $this->success('发放成功！（无可发放数据）');
+              return  $this->success('发放成功！（无可发放数据）');
 
             }
 
             $data = $UserpropertyModel->getPageList();
             foreach ($data as $v){
 
-                $money = $v['award'] * $this->cnfg;
+                #释放用户的奖金
+                $this->awardall += $money = $v['award'] * $this->cnfg;
 
-                $UserpropertyModel_h->setChangeMoney(C('award'),$money,$v['id'],'奖金释放',2);
+                $back = $AwardInfoModel->addInfo($v['id'],$money,$UserpropertyModel_h);
+                if ($back==false){
+                    throw new Exception($AwardInfoModel->getError());
+                }
 
             }
 
-
+            #修改本次发放期数的总金额
+            $back = $AwardModel->saveMoney($this->awardall);
+            if ($back==false){
+                throw new Exception($AwardModel->getError());
+            }
 
             $AwardModel->commit();
             return  $this->success('发放成功！');

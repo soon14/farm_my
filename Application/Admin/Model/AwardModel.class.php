@@ -60,4 +60,16 @@ class AwardModel extends Model
 
     }
 
+    public function saveMoney($money){
+
+          $back =  $this->where(['id'=>$this->id_my])->setInc('money',$money);
+          if (!$back){
+              $this->error='本期总金额修改失败！';
+              return false;
+          }
+
+          return true;
+
+    }
+
 }
