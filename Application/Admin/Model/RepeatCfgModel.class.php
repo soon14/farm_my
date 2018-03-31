@@ -19,5 +19,10 @@ class RepeatCfgModel extends Model
         return $data['data'];
     }
 
+    public function getCfg_all(){
+        $data =  $this->where()->select();
+        return $data;
+    }
+
 
 }

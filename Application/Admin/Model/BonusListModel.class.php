@@ -42,7 +42,8 @@ class BonusListModel extends Model
                     'time'=>time(),
                     'number_cmc'=>$number/$cmc_price,
                     'repeats_cmc'=>$repeats/$cmc_price,
-                    'cmc_price'=>$cmc_price
+                    'cmc_price'=>$cmc_price,
+                    'revenue_cmc'=>$that_revenue/$cmc_price
                 ]);
     }
 

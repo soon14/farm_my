@@ -112,6 +112,8 @@ class MotionController extends AdminController {
                 ['key'=>'cmc','data'=>I('cmc')],
                 ['key'=>'poundage','data'=>I('poundage')/100],
                 ['key'=>'revenue','data'=>I('revenue')/100],
+                ['key'=>'bonus_back','data'=>I('bonus_back')/100],
+                ['key'=>'balance_back','data'=>I('balance_back')/100],
             ];
 
             $repeat_cfg_m->startTrans();

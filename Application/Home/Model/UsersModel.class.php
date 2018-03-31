@@ -53,4 +53,29 @@ class UsersModel extends Model
     }
 
 
+    function team(array $user){
+
+        while (true){
+
+            $prend =  $this->field('pid,id')->where(['id'=>$user['pid']])->find();
+
+            if (empty($prend)){
+                break;
+            }
+
+            $this->where(['id'=>$prend['id']])->setInc('team',1);
+
+            if (empty($prend['pid']) || $prend['pid']==0){
+                break;
+            }
+
+            $user = $prend;
+
+        }
+
+        return true;
+
+    }
+
+
 }

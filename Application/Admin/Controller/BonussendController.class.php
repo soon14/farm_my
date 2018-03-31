@@ -117,7 +117,6 @@ class BonussendController extends Controller
 
                     $all_money += $money;
 
-
                     #发放用户cny
                     $back = $userproperty->setChangeMoney(1,$money/$this->cmc_price,$v['user_id'],'红包分红',2);
 
@@ -159,11 +158,13 @@ class BonussendController extends Controller
             $this->error($e->getMessage());
 
             $bonus_m->rollback();
+
         }
 
     }
 
     public function cssql(){
+
         $a = new Model('addcs');
         $a->addAll([['id'=>1,'key'=>'122','value'=>3]],[],true);
 
