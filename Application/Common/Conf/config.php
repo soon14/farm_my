@@ -61,7 +61,9 @@ return array(
     'COUNT'=>1000,
 
     /* 账户类型的虚拟币id */
-    'award'=>5,
+    'award'=>5, //奖金账户
+    'into'=>63,  //转入
+    'balance'=>1, //cmc余额
 
 
 );
