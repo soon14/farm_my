@@ -9,9 +9,7 @@
 
 namespace Admin\Controller;
 use Admin\Model\RepeatCfgModel;
-use Think\Db;
 use Think\Exception;
-use User\Api\UserApi;
 use Think\Page;
 class MotionController extends AdminController {
 
@@ -161,6 +159,46 @@ class MotionController extends AdminController {
 
         $this->assign('data',$back_data);
 
+        $this->display();
+    }
+
+
+    /**
+     *理财配置
+     */
+
+    function matters(){
+        $currency_matters_cfg = M('matters_cfg');
+        if (IS_POST){
+            $data = I('post.');
+
+            $add_data = [];
+
+
+            foreach ($data['id'] as $k=>$v){
+
+                if ($v==0){
+                    $add_data[]= ['time'=>$data['time'][$k],'interest'=>$data['interest'][$k]];
+                }else{
+                    $save_Data= ['time'=>$data['time'][$k],'interest'=>$data['interest'][$k]];
+
+                    $currency_matters_cfg->where(['id'=>$v])->save($save_Data);
+
+                }
+
+            }
+
+            if (!empty($add_data)){
+
+                $currency_matters_cfg->addAll($add_data);
+
+            }
+
+            $this->success('操作成功！');
+            exit();
+        }
+        $data = $currency_matters_cfg->select();
+        $this->assign('data',$data);
         $this->display();
     }
 

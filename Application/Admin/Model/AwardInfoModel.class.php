@@ -43,14 +43,14 @@ class AwardInfoModel extends Model
     public function  addInfo($user_id,$money,\Home\Model\UserpropertyModel $userpropertyModel){
 
             #减少用户的奖金账户
-            $back = $userpropertyModel->setChangeMoney(C(''),$money,$user_id,'奖金释放',1);
+            $back = $userpropertyModel->setChangeMoney(C('award'),$money,$user_id,'奖金释放',1);
             if (!$back){
                 $this->error='奖金账户扣除失败！错误信息：id=>'.$user_id.'money=>'.$money;
                 return false;
             }
 
             #增加用户的余额账户
-            $back = $userpropertyModel->setChangeMoney(C(''),$money,$user_id,'奖金释放',2);
+            $back = $userpropertyModel->setChangeMoney(C('balance'),$money,$user_id,'奖金释放',2);
             if (!$back){
                 $this->error='余额账户增加失败！错误信息：id=>'.$user_id.'money=>'.$money;
                 return false;

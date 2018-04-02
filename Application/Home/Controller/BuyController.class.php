@@ -210,13 +210,14 @@ class BuyController extends HomeController {
                 -> field("data")
                 -> where(['key' => $key])
                 -> find();
-            if ($count['count'] != NULL) {
+//            if ($count['count'] != NULL) {
 
-                if ($count_all['count']>100){
+                if ($count_all['count'] + $data['number'] >100){
                     return $this -> error("您已超过最大红包限购量100");
+                    exit();
                 }
 
-                if ($count['count'] >= $cfg['data']) {
+                if ($count['count']+ $data['number']  >= $cfg['data']) {
                     $this -> error("今日购买红包次数已用完");
                     exit();
                 } else {
@@ -225,13 +226,15 @@ class BuyController extends HomeController {
                         exit();
                     }
                 }
-            } else {
-                if ($data['number'] > $cfg['data']) {
-                    $count['count'] = 0;
-                    $this -> error("今日可用".$method_cn."方式购买".($cfg['data'] - $count['count'])."个");
-                    exit();
-                }
-            }
+//            } else {
+
+//                if ($data['number'] > $cfg['data']) {
+//                    $count['count'] = 0;
+//                    $this -> error("今日可用".$method_cn."方式购买".($cfg['data'] - $count['count'])."个");
+//                    exit();
+//                }
+
+//            }
             
             
         }
