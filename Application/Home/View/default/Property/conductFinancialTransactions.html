@@ -39,6 +39,8 @@
 				</li>
 			</ol>
 		</div>
+		
+		
 
 		<div class="container center_content">
 			<include file="Public:finance_left"/>
@@ -48,7 +50,65 @@
 					<h4>我的理财</h4>
 					<div class="clearfix"></div>
 				</div>
-				<div class="currency-type form-group">
+					
+					<div class="currency-type form-group">
+						<div style="width: 50%;height: 40px;font-size: 15px;margin-left: 1%;">
+							<p>余额：<span style="color: red;">0000</span></p>
+						</div>
+						<div id='xnb' class="xnb_panel sendxnb"  xnb="{$xnb_name[0]['id']}">
+							<span class="xnb_content">
+								<span class="iindex_brief">选择</span>
+							</span>
+							<i></i>
+						</div>
+						<div id="xnb_table">
+							<table id="case">
+								<foreach name="xnb_name" item="vo">
+									<php>$k=$key+1;</php>
+									<eq name="k+2" value="0"><tr></eq>
+									<td class="xnb_panel" xnb="">
+										<span>月份</span>
+									</td>
+									<eq name="k%3" value="0"></tr></eq>
+								</foreach>
+							</table>
+						</div>
+	
+						<div class="currency-type-hint">
+							<label class="currency-type-usable"><strong>利率：</strong>
+								<span  id="buy_xnb" class="C669900">
+									<if condition="$xnb_prop['property'] neq 0 ">{$xnb_prop.property}
+											<else/><span>0.00</span>
+									</if>
+								</span>
+							</label>
+						</div>
+						
+						<div class="out-info" id="in_curr_form" style="margin: 40px 0 0 0;">
+					<!--<h4 class="join_title">转入资产</h4>-->
+					<!--<div class="form-group">-->
+						<!--<label>转入地址 : </label>-->
+						<!--<input class="form-control"  name="address" value="{:base64_decode($xnb_name[0]['address'])}" disabled="disabled"/>-->
+					<!--</div>-->
+					<div class="form-group">
+						<label>转入数量 : </label>
+						<input class="form-control"  name="number" type="number"  placeholder="转入数量"/>
+					</div>
+					<!--<div class="form-group">-->   <!--弃用交易密码验证-->
+						<!--<label>交易密码 : </label>-->
+						<!--<input class="form-control"  name="password" type="password" onkeyup="tradePwReg(this)" onblur="tradePwReg(this)" placeholder="交易密码"/>-->
+						<!--<a class="out-info-hint" href="{:U('Safety/changePw?tag=3&pane=1')}">忘记密码?</a>-->
+						<!--<span class="tips red_tips"><i class="glyphicon glyphicon-info-sign"></i>交易密码必须是6位数字</span>-->
+						<!--<span class="tips green_tips"><i class="glyphicon glyphicon-ok-sign"></i>交易密码格式正确</span>-->
+					<!--</div>-->
+					<div class="out-info-present">
+						<input type="submit" value="确认"  id="in_curr_submit"/>
+					</div>
+				</div>
+					</div>
+				
+				
+				<div class="currency-type form-group" style="margin-left: 1%;">
 					<form action="" method="post" class="form-inline">
 			            <div class="form-group">
 			                <input type="text" name="date" value="{:I('date')}"  readonly="readonly"  class="text form-control" id="date_start" placeholder="开始时间" />
@@ -57,6 +117,7 @@
 			            </div>
 			        </form>
 				</div>
+				
 				
 			<table id="example" class="display" cellspacing="0" width="100%">
 		        <thead>
