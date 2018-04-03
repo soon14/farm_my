@@ -57,11 +57,11 @@
 					
 					<div class="currency-type form-group">
 						<div style="width: 50%;height: 40px;font-size: 15px;margin-left: 1%;">
-							<p>余额：<span style="color: red;">0000</span></p>
+							<p>余额账户：<span style="color: red;">{:floatval($user_data['cny'])}</span></p>
 						</div>
 
 						<div style="width: 50%;height: 40px;font-size: 15px;margin-left: 1%;">
-							<p>余额：<span style="color: red;">0000</span></p>
+							<p>转入资产账户：<span style="color: red;">{:floatval($user_data['cmc'])}</span></p>
 						</div>
 						<!--<div id='xnb' class="xnb_panel sendxnb"  xnb="{$xnb_name[0]['id']}">
 							<span class="xnb_content">
@@ -83,7 +83,8 @@
 						</div>-->
 						
 						<select>
-						  <option value ="mon">账户</option>
+						  <option value ="balance">余额账户</option>
+						  <option value ="into">转入资产账户</option>
 						</select>
 						
 						<select>
@@ -98,7 +99,7 @@
 									</if>
 								</span>
 							</label>
-							
+
 						</div>
 						
 						<div class="out-info" id="in_curr_form" style="margin: 40px 0 0 0;">

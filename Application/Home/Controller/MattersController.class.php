@@ -74,8 +74,15 @@ class MattersController extends HomeController
      */
 
     function view(){
+        $userproperty_m = M('userproperty');
 
+        $user_data = $userproperty_m->where(['userid'=>session('user.id')])->find();
+        $matters_cfg_m = M('matters_cfg');
 
+        $cnfg=$matters_cfg_m->select();
+
+        $this->assign('cnfg',$cnfg);
+        $this->assign('user_data',$user_data);
         $this->display();
     }
 
