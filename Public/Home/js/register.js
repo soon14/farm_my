@@ -399,7 +399,7 @@ function tijiaozhuce() {
     var form=$('.ajax_zhuce');
     var name=$('#real_name').val();
     var yanzheng_num=$('#yanzheng_num').val();
-    if (name!=null && name!="" && idcardtrue==1 ){
+//  if (name!=null && name!="" && idcardtrue==1 ){
         $.ajax({
             url:form.attr('action'),
             type:form.attr('method'),
@@ -437,11 +437,13 @@ function tijiaozhuce() {
                 }
             }
         });
-    }else if(name==null && name=="" && idcardtrue==1 && yanzheng_num!=null && yanzheng_num!=""){
-        set_poput_yanzhen("真实姓名不可为空",false);
-    }else if(name!=null && name!="" && idcardtrue==1 && yanzheng_num==null && yanzheng_num==""){
-        set_poput_yanzhen("验证码不可为空",false);
-    }
+//  }
+//  else if(name==null && name=="" && idcardtrue==1 && yanzheng_num!=null && yanzheng_num!=""){
+//      set_poput_yanzhen("真实姓名不可为空",false);
+//  }
+//  else if(name!=null && name!="" && idcardtrue==1 && yanzheng_num==null && yanzheng_num==""){
+//      set_poput_yanzhen("验证码不可为空",false);
+//  }
 }
 function cardReg(ss) {
             $.ajax({
