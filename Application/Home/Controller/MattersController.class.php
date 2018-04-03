@@ -69,6 +69,16 @@ class MattersController extends HomeController
 
     }
 
+    /**
+     * 理财页面
+     */
+
+    function view(){
+
+
+        $this->display();
+    }
+
 
 
 }
