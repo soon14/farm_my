@@ -24,7 +24,11 @@
 		<script src="__JS__/center_left.js"></script>
 		<script type="text/javascript" src="__JS__/finance.js" ></script>
 	</head>
-
+		<style type="text/css">
+			select{
+				float: none;
+			}
+		</style>
 	<body>
 	<include file="Public:header"/>
 
@@ -55,7 +59,7 @@
 						<div style="width: 50%;height: 40px;font-size: 15px;margin-left: 1%;">
 							<p>余额：<span style="color: red;">0000</span></p>
 						</div>
-						<div id='xnb' class="xnb_panel sendxnb"  xnb="{$xnb_name[0]['id']}">
+						<!--<div id='xnb' class="xnb_panel sendxnb"  xnb="{$xnb_name[0]['id']}">
 							<span class="xnb_content">
 								<span class="iindex_brief">选择</span>
 							</span>
@@ -72,13 +76,28 @@
 									<eq name="k%3" value="0"></tr></eq>
 								</foreach>
 							</table>
-						</div>
-	
+						</div>-->
+						
+						<select>
+						  <option value ="mon">账户</option>
+						</select>
+						
+						<select>
+						  <option value ="mon">月份</option>
+						</select>
+						
 						<div class="currency-type-hint">
-							<label class="currency-type-usable"><strong>利率：</strong>
-								<span  id="buy_xnb" class="C669900">
-									<if condition="$xnb_prop['property'] neq 0 ">{$xnb_prop.property}
+							<label class="currency-type-usable"><strong>利息：</strong>
+								<span  id=" " class="C669900">
+									<if condition="$xnb_prop['property'] neq 0 ">
 											<else/><span>0.00</span>
+									</if>
+								</span>
+							</label>
+							<label class="currency-type-usable"><strong>利息：</strong>
+								<span  id=" " class="c55600">
+									<if condition="$xnb_prop['property_d'] neq 0 ">
+										<else/><span>0.00</span>
 									</if>
 								</span>
 							</label>
