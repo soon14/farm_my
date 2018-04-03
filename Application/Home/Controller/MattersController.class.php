@@ -44,7 +44,7 @@ class MattersController extends HomeController
 
             #理财记录生成
 
-            $back = $matters_m->addData($money);
+            $back = $matters_m->addData($money,$cfg);
             if (!$back){
                 throw new Exception($matters_m->getError());
             }
