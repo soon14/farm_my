@@ -55,102 +55,49 @@
 					<div class="clearfix"></div>
 				</div>
 					
-					<div class="currency-type form-group">
-						<div style="width: 50%;height: 40px;font-size: 15px;margin-left: 1%;">
-							<p>余额：<span style="color: red;">0000</span></p>
-						</div>
-
-						<div style="width: 50%;height: 40px;font-size: 15px;margin-left: 1%;">
-							<p>余额：<span style="color: red;">0000</span></p>
-						</div>
-						<!--<div id='xnb' class="xnb_panel sendxnb"  xnb="{$xnb_name[0]['id']}">
-							<span class="xnb_content">
-								<span class="iindex_brief">选择</span>
-							</span>
-							<i></i>
-						</div>
-						<div id="xnb_table">
-							<table id="case">
-								<foreach name="xnb_name" item="vo">
-									<php>$k=$key+1;</php>
-									<eq name="k+2" value="0"><tr></eq>
-									<td class="xnb_panel" xnb="">
-										<span>月份</span>
-									</td>
-									<eq name="k%3" value="0"></tr></eq>
-								</foreach>
-							</table>
-						</div>-->
-						
-						<!--<select>
-						  <option value ="mon">账户</option>
-						</select>
-						
-						<select>
-						  <option value ="mon">月份</option>
-						</select>-->
-						
-						<!--<div class="currency-type-hint">
-							<label class="currency-type-usable"><strong>利息：</strong>
-								<span  id=" " class="C669900">
-									<if condition="$xnb_prop['property'] neq 0 ">
-											<else/><span>0.00</span>
-									</if>
-								</span>
-							</label>
-							
-						</div>-->
-						
-						<div class="out-info" id="in_curr_form" style="margin: 0 0 0 0;">
-							<!--<h4 class="join_title">转入资产</h4>-->
-							<!--<div class="form-group">-->
-								<!--<label>转入地址 : </label>-->
-								<!--<input class="form-control"  name="address" value="{:base64_decode($xnb_name[0]['address'])}" disabled="disabled"/>-->
-							<!--</div>-->
-							<select class="form-group" style="margin:15px 85px 0 85px;">
-							  <option value ="mon">月份</option>
-							</select>
-							
-							<select class="form-group" style="margin:15px 85px 15px 85px;">
-							  <option value ="mon">账户</option>
-							</select>
-							
-							<!--<div class="currency-type-hint" style="width: 200px;margin-left: 50px;">
-								<label class="currency-type-usable"><strong>利息：</strong>
-									<span  id=" " class="C669900">
-										<if condition="$xnb_prop['property'] neq 0 ">
-												<else/><span>0.00</span>
-										</if>
-									</span>
-								</label>
-							</div>-->
-							
-							<div class="form-group">
-								<label>利息 : </label>
-								<input class="form-control"   readonly name="number" type="number"  placeholder="利息"/>
-							</div>
-							
-							<div class="form-group">
-								<label>转入数量 : </label>
-								<input class="form-control"  name="number" type="number"  placeholder="转入数量"/>
-							</div>
-							<!--<div class="form-group">-->   <!--弃用交易密码验证-->
-								<!--<label>交易密码 : </label>-->
-								<!--<input class="form-control"  name="password" type="password" onkeyup="tradePwReg(this)" onblur="tradePwReg(this)" placeholder="交易密码"/>-->
-								<!--<a class="out-info-hint" href="{:U('Safety/changePw?tag=3&pane=1')}">忘记密码?</a>-->
-								<!--<span class="tips red_tips"><i class="glyphicon glyphicon-info-sign"></i>交易密码必须是6位数字</span>-->
-								<!--<span class="tips green_tips"><i class="glyphicon glyphicon-ok-sign"></i>交易密码格式正确</span>-->
-							<!--</div>-->
-							<div class="out-info-present">
-								<input type="submit" value="确认"  id="in_curr_submit"/>
-							</div>
-						</div>
-						<div style="margin-top: 30px;">
-							<div class="total-assets">
-								<a href="{:U('Matters/list?tag=14')}">点击查看理财记录</a>
-							</div>
-						</div>
-					</div>
+					
+					<!--<div class="form-group">-->   <!--弃用交易密码验证-->
+						<!--<label>交易密码 : </label>-->
+						<!--<input class="form-control"  name="password" type="password" onkeyup="tradePwReg(this)" onblur="tradePwReg(this)" placeholder="交易密码"/>-->
+						<!--<a class="out-info-hint" href="{:U('Safety/changePw?tag=3&pane=1')}">忘记密码?</a>-->
+						<!--<span class="tips red_tips"><i class="glyphicon glyphicon-info-sign"></i>交易密码必须是6位数字</span>-->
+						<!--<span class="tips green_tips"><i class="glyphicon glyphicon-ok-sign"></i>交易密码格式正确</span>-->
+					<!--</div>-->
+				<div class="currency-type form-group" style="margin-left: 1%;">
+					<form action="" method="post" class="form-inline">
+			            <div class="form-group">
+			                <input type="text" name="date" value="{:I('date')}"  readonly="readonly"  class="text form-control" id="date_start" placeholder="开始时间" />
+			                至 <input type="text" name="dates" value="{:I('dates')}" readonly="readonly" class="text form-control" id="date_end" placeholder="结束时间" />
+			                <input type="submit" value="查询" class="form-control">
+			            </div>
+			        </form>
+				</div>
+				
+				
+			<table id="example" class="display" cellspacing="0" width="100%">
+		        <thead>
+		            <tr>
+		            	<td>编号</td>
+	                    <td>时间</td>
+	                    <td>本金</td>
+	                    <td>利息</td>
+	                    <td>状态</td>
+		            </tr>
+		        </thead>
+		        <tbody>
+                        <!--<tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>-->
+		        </tbody>
+		    </table>
+				
+				<div class="page">
+	                {$page}
+	            </div>
 			</div>
 		</div>
 	</main>
@@ -159,6 +106,16 @@
 	<script type="text/javascript" src="/Public/Home/js/jquery.ui.js"></script>
 	<script type="text/javascript" src="__JS__/jquery.dataTables.js" ></script>
 	<script>
+		$(document).ready(function(){
+		    $('#example').DataTable({
+		//      	"data":tbody1,
+				"searching" : false,
+				"paging":   false,//分页器
+				"ordering": false,//选择竖
+				"info":     false,//下方显示第几页
+		//			 "bLengthChange": true,
+		    });
+		});
 		$(function () {
 			//排序
 			var li=$('#record_grey').children();
