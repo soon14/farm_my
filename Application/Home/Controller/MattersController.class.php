@@ -87,5 +87,29 @@ class MattersController extends HomeController
     }
 
 
+    /**
+     * 用户的理财记录
+     */
+
+    function Matters_list(){
+
+        $where= [];
+        $time_start = I('time_start');
+        $time_end = I('time_end');
+
+        if (!empty($time_start) && $time_end){
+            $where = ['time'=>[['egt',strtotime($time_start)],['elt',strtotime($time_end)+86400],'and']];
+        }
+
+        $MattersModel = new MattersModel();
+
+        $data = $MattersModel->getlist($where);
+
+        $this->assign('page',$data['show']);
+        $this->assign('data',$data['data']);
+        $this->display();
+    }
+
+
 
 }

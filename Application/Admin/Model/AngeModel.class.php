@@ -17,7 +17,7 @@ use Think\Model;
  * Class AwardModel
  * @package Admin\Model
  */
-class AwardModel extends Model
+class AngeModel extends Model
 {
 
     private $id_my;
@@ -45,7 +45,7 @@ class AwardModel extends Model
      * 获取一个释放期数id
      * @return $this
      */
-    public function getNewAward(){
+    public function getNewAnge(){
 
         $data = $this->order('id desc')->find();
 

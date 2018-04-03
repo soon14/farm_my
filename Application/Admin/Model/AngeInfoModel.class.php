@@ -16,7 +16,7 @@ use Think\Model;
  * Class AwardInfoModel
  * @package Admin\Model
  */
-class AwardInfoModel extends Model
+class AngeInfoModel extends Model
 {
     /**
      * 释放期数的id
@@ -47,10 +47,10 @@ class AwardInfoModel extends Model
      */
     public function  addInfo($user_id,$money,\Home\Model\UserpropertyModel $userpropertyModel){
 
-            #减少用户的奖金账户
-            $back = $userpropertyModel->setChangeMoney(C('award'),$money,$user_id,'奖金释放',1);
+            #减少用户的转入资产账户
+            $back = $userpropertyModel->setChangeMoney(C('into'),$money,$user_id,'奖金释放',1);
             if (!$back){
-                $this->error='奖金账户扣除失败！错误信息：id=>'.$user_id.'money=>'.$money;
+                $this->error='转入资产账户扣除失败！错误信息：id=>'.$user_id.'money=>'.$money;
                 return false;
             }
 
@@ -60,6 +60,7 @@ class AwardInfoModel extends Model
                 $this->error='余额账户增加失败！错误信息：id=>'.$user_id.'money=>'.$money;
                 return false;
             }
+
 
 
             #生成释放记录

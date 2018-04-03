@@ -10,6 +10,7 @@ namespace Home\Model;
 
 use Common\Controller\CmcpriceController;
 use Think\Model;
+use Think\Page;
 
 class MattersModel extends Model
 {
@@ -36,5 +37,23 @@ class MattersModel extends Model
         }
 
     }
+
+    function getlist($where){
+        $back = [];
+        $wheres = ['user_id'=>session('user.id')];
+        if (!empty($where)){
+            array_push($wheres,$where);
+        }
+
+        $count =  $this->where($wheres)->count();
+        $page = new Page($count,15,['time_start'=>I('time_start'),'time_end'=>I('time_end')]);
+
+        $back['show'] = $page->show();
+
+        $back['data'] = $this->where($wheres)->limit($page->firstRow,$page->listRows)->select();
+
+        return $back;
+    }
+
 
 }

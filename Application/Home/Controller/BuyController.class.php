@@ -217,7 +217,7 @@ class BuyController extends HomeController {
                     exit();
                 }
 
-                if ($count['count']+ $data['number']  >= $cfg['data']) {
+                if ($count['count']+ $data['number']  > $cfg['data']) {
                     $this -> error("今日购买红包次数已用完");
                     exit();
                 } else {

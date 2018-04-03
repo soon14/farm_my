@@ -172,23 +172,23 @@ class RegisterController extends HomeController {
         $re_email_password=$this->strFilter(I('re_email_password'));
         $yaoqing_code_email=$this->strFilter(I('yaoqing_code_email'));
         if($username=="" && $username==null && $email_name=="" && $email_name==null){
-            $this->error("账号不可为空");
+              return  $this->error("账号不可为空");
         }
         if($username!="" && $username!=null && $email_name=="" && $email_name==null){
             $phone['users']=$username;
             $redata=$model->where($phone)->select();
             if($redata){
-                $this->error("用户已存在，请登录");
+               return $this->error("用户已存在，请登录");
             }else{
                 $REG="/^1(3|4|5|7|8)\d{9}$/";
-                $REGuser=preg_match($REG,$username);
+//                $REGuser=preg_match($REG,$username);
                 $REGpwd="/^[a-zA-Z]\w{5,17}$/";
                 $REGold=preg_match($REGpwd,$cipher_code);
                 $REGnew=preg_match($REGpwd,$confirm_code);
                 $REGdeal="/^\d{6}$/";
                 $REGdealold=preg_match($REGdeal,$set_trade_pw);
                 $REGdealnew=preg_match($REGdeal,$reset_trade_pw);
-                if($REGuser==1 && $REGold==1 && $REGnew==1 && $REGdealold==1 && $REGdealnew==1){
+                if( $REGold==1 && $REGnew==1 && $REGdealold==1 && $REGdealnew==1){
                     if($REGold==$REGnew){
                         if($REGdealold==$REGdealnew){
                             $data['users']=$username;

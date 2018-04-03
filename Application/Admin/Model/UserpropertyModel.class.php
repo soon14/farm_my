@@ -9,13 +9,21 @@
 namespace Admin\Model;
 
 
-class UserpropertyModel
+use Think\Model;
+
+class UserpropertyModel extends Model
 {
 
 
     function getPageList(){
 
-       return $this->where(['award'=>['gt',0],'bonus_time'=>['neq',date('Y-m-d',time())]])->limit(0,1000)->select();
+        $where['award'] = ['gt',0];
+        $where['cmc'] = ['gt',0];
+        $where['_logic'] = 'or';
+        $map['_complex'] = $where;
+        $map['bonus_time'] =  ['neq',date('Y-m-d',time())];
+
+       return $this->where($map)->limit(0,1000)->select();
 
     }
 

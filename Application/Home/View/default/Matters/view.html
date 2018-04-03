@@ -54,114 +54,56 @@
 					<h4>我的理财</h4>
 					<div class="clearfix"></div>
 				</div>
-					
+				<form>
 					<div class="currency-type form-group">
 						<div style="width: 50%;height: 40px;font-size: 15px;margin-left: 1%;">
-							<p>余额账户：<span style="color: red;">{:floatval($user_data['cny'])}</span></p>
+							<p>余额账户：<span style="color: red;" id="cny">{:floatval($user_data['cny'])}</span></p>
 						</div>
 
 						<div style="width: 50%;height: 40px;font-size: 15px;margin-left: 1%;">
-							<p>转入资产账户：<span style="color: red;">{:floatval($user_data['cmc'])}</span></p>
+							<p>转入资产账户：<span style="color: red;" id="cmc">{:floatval($user_data['cmc'])}</span></p>
 						</div>
-						<!--<div id='xnb' class="xnb_panel sendxnb"  xnb="{$xnb_name[0]['id']}">
-							<span class="xnb_content">
-								<span class="iindex_brief">选择</span>
-							</span>
-							<i></i>
-						</div>
-						<div id="xnb_table">
-							<table id="case">
-								<foreach name="xnb_name" item="vo">
-									<php>$k=$key+1;</php>
-									<eq name="k+2" value="0"><tr></eq>
-									<td class="xnb_panel" xnb="">
-										<span>月份</span>
-									</td>
-									<eq name="k%3" value="0"></tr></eq>
-								</foreach>
-							</table>
-						</div>-->
-						
-						<select>
-						  <option value ="balance">余额账户</option>
-						  <option value ="into">转入资产账户</option>
-						</select>
-						
-						<select>
-						  <option value ="mon">月份</option>
-						</select>
-						
-						<div class="currency-type-hint">
-							<label class="currency-type-usable"><strong>利息：</strong>
-								<span  id=" " class="C669900">
-									<if condition="$xnb_prop['property'] neq 0 ">
-											<else/><span>0.00</span>
-									</if>
-								</span>
-							</label>
 
+						<div class="out-info" id="in_curr_form" style="margin: 0 0 0 0;">
+
+							<div class="form-group">
+								<label>周期 : </label>
+								<select name="type" class="form-group" style="">
+									<foreach name="cnfg" item="vo">
+										<option value ="{$vo.id}" interest="{$vo.interest}" >{$vo.time}月</option>
+									</foreach>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label>月利率 : </label>
+								<input class="form-control"  readonly name="interest" value="{$cnfg[0]['interest']}" type="number"  placeholder="利息"/>%
+							</div>
+
+							<select class="form-group" style="margin:15px 85px 15px 85px;" name="money_type">
+								<option value ="balance" >余额账户</option>
+								<option value ="into">转入资产账户</option>
+							</select>
+
+							<div class="form-group">
+								<label>转入数量 : </label>
+								<input class="form-control"  name="money" type="number"  placeholder="转入数量"/>
+							</div>
+
+							<div class="out-info-present">
+								<input type="submit" value="确认"  id="in_curr_submit"/>
+							</div>
 						</div>
-						
-						<div class="out-info" id="in_curr_form" style="margin: 40px 0 0 0;">
-					<!--<h4 class="join_title">转入资产</h4>-->
-					<!--<div class="form-group">-->
-						<!--<label>转入地址 : </label>-->
-						<!--<input class="form-control"  name="address" value="{:base64_decode($xnb_name[0]['address'])}" disabled="disabled"/>-->
-					<!--</div>-->
-					<div class="form-group">
-						<label>转入数量 : </label>
-						<input class="form-control"  name="number" type="number"  placeholder="转入数量"/>
+
+						<div style="margin-top: 30px;">
+							<div class="total-assets">
+								<a href="{:U('Matters/matters_list',['tag'=>14])}">点击查看理财记录</a>
+							</div>
+						</div>
 					</div>
-					<!--<div class="form-group">-->   <!--弃用交易密码验证-->
-						<!--<label>交易密码 : </label>-->
-						<!--<input class="form-control"  name="password" type="password" onkeyup="tradePwReg(this)" onblur="tradePwReg(this)" placeholder="交易密码"/>-->
-						<!--<a class="out-info-hint" href="{:U('Safety/changePw?tag=3&pane=1')}">忘记密码?</a>-->
-						<!--<span class="tips red_tips"><i class="glyphicon glyphicon-info-sign"></i>交易密码必须是6位数字</span>-->
-						<!--<span class="tips green_tips"><i class="glyphicon glyphicon-ok-sign"></i>交易密码格式正确</span>-->
-					<!--</div>-->
-					<div class="out-info-present">
-						<input type="submit" value="确认"  id="in_curr_submit"/>
-					</div>
-				</div>
-					</div>
-				
-				
-				<div class="currency-type form-group" style="margin-left: 1%;">
-					<form action="" method="post" class="form-inline">
-			            <div class="form-group">
-			                <input type="text" name="date" value="{:I('date')}"  readonly="readonly"  class="text form-control" id="date_start" placeholder="开始时间" />
-			                至 <input type="text" name="dates" value="{:I('dates')}" readonly="readonly" class="text form-control" id="date_end" placeholder="结束时间" />
-			                <input type="submit" value="查询" class="form-control">
-			            </div>
-			        </form>
-				</div>
-				
-				
-			<table id="example" class="display" cellspacing="0" width="100%">
-		        <thead>
-		            <tr>
-		            	<td>编号</td>
-	                    <td>时间</td>
-	                    <td>本金</td>
-	                    <td>利息</td>
-	                    <td>状态</td>
-		            </tr>
-		        </thead>
-		        <tbody>
-                        <!--<tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>-->
-		        </tbody>
-		    </table>
-				
-				<div class="page">
-	                {$page}
-	            </div>
+				</form>
 			</div>
+
 		</div>
 	</main>
 
@@ -169,81 +111,42 @@
 	<script type="text/javascript" src="/Public/Home/js/jquery.ui.js"></script>
 	<script type="text/javascript" src="__JS__/jquery.dataTables.js" ></script>
 	<script>
-		$(document).ready(function(){
-		    $('#example').DataTable({
-		//      	"data":tbody1,
-				"searching" : false,
-				"paging":   false,//分页器
-				"ordering": false,//选择竖
-				"info":     false,//下方显示第几页
-		//			 "bLengthChange": true,
-		    });
-		});
-		$(function () {
-			//排序
-			var li=$('#record_grey').children();
-			$('#record_grey').children().remove();
-			for(var i=0;i<li.length;i++){
-				$.each(li,function (k,v) {
-					if (k+1<li.length) {
-							var my = v;
-							var next_m = li[k+1];
-							var money = $(v).find('.allmoney').text();
-							var next = $(li[k+1]).find('.allmoney').text();
-							if (money < next) {
-								li[k]= next_m;
-								li[k+1]=v;
-							}
-					}
-				})
-			}
-			$('#record_grey').append(li);
-			$('#record_grey').css('display','block');
-		})
+		$('[name=type]').change(function () {
 
-		$("body").on('click', '.confirm',function() {
-			var order_id = $(this).attr("data");
-			var type = $(this).attr("data2");
+            $('[name=interest]').val($(this).find("option:selected").attr('interest'));
+
+        })
+		$('[type=submit]').click(function () {
+
+            var money = parseFloat($('[name=money]').val());
+            var money_cmc = parseFloat($('#cmc').text());
+            var money_cny = parseFloat($('#cny').text());
+
+
+            if (money<=0 || isNaN(money)){
+                set_poput_code('请输入正确的数量',false);
+                return false;
+			}
+
+		    if ( ($('[name=money_type]').val()=='balance' && money>money_cny) || ($('[name=money_type]').val()=='balance' && money>money_cmc) ){
+                set_poput_code('账户余额不足',false);
+                return false;
+			}
 
 			$.ajax({
-				url:"{:U('Buy/receiving')}",
-				data:{order_id:order_id,type:type},
-				type:"POST",
-				success:function(data) {
-					if (data.status != true) {
-						set_poput_code(data.info,false);
-					} else {
-						set_poput_code(data.info,true);
+				url:'{:U(\'index\')}',
+				type:'post',
+				data:$('form').serialize(),
+				success:function (data) {
+					if (!data.status){
+                        set_poput_code(data.info,false);
 					}
-				}
+                    set_poput_code(data.info,true);
+                }
 			})
-		});	
-		$(function () {
-		    var dates = $("#date_start,#date_end");
+            return false;
+        })
 
-		    dates.datepicker({
-		        dateFormat: 'yy-mm-dd',
-		        //dayNames : ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
-		        //dayNamesShort : ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
-		        dayNamesMin: ['日', '一', '二', '三', '四', '五', '六'],
-		        monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-		        monthNamesShort: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-		        altField: '#abc',
-		        altFormat: 'dd/mm/yy',
-		        appendText: '日历',
-		        showWeek: false,
-		        //weekHeader : '周',
-		        firstDay: 1,
-		        changeMonth: true,
-		        changeYear: true,
-		        maxDate: 0,
-		        onSelect: function (selectedDate) {
-		            var option = this.id == "date_start" ? "minDate" : "maxDate";
-		            dates.not(this).datepicker("option", option, selectedDate);
-		        }
-		    });
-
-		});
 	</script>
 
 	</body>
