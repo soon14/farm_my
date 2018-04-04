@@ -7,37 +7,43 @@
  */
 
 namespace Otc\Model;
-use Otc\Model\OtcModel;
+
+
+use Think\Model;
 
 class UserModel extends OtcModel
 {
-    private $user;
+
+
+
+    public $user_my;
 
     /**
      * @return mixed
      */
-    public function getUser()
+    public function getUserMy()
     {
-        return $this->user;
+        return $this->user_my;
     }
 
     /**
-     * @param mixed $user
+     * @param mixed $user_my
      */
-    public function setUser($user)
+    public function setUserMy($user_my)
     {
-        $this->user = $user;
+        $this->user_my = $user_my;
     }
 
-    function checkUser(){
 
-        $back = $this->where(['mobile'=>$this->user])->find();
+
+    function checkUsers(){
+
+        $back = $this->where(['mobile'=>$this->user_my])->select();
 
         if (!empty($back)){
             return true;
         }
 
         return false;
-
     }
 }

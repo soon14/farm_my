@@ -9,7 +9,8 @@
 namespace Otc\Model;
 
 
-class UserCoinModel
+class UserCoinModel extends OtcModel
 {
+
 
 }

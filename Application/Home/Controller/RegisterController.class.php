@@ -9,6 +9,7 @@
 
 namespace Home\Controller;
 use Home\Model\UsersModel;
+use Otc\Model\UserModel;
 use User\Api\UserApi;
 
 /**
@@ -143,12 +144,23 @@ class RegisterController extends HomeController {
     function reguser(){
         $model=M('users');
         $phone['users']=$this->strFilter(I('users'));
+
+        $UserModel =  new \Otc\Model\UserModel();
+        $UserModel->setUserMy($phone['users']);
+        $back = $UserModel->checkUsers();
+        if ($back){
+            return $this->error("用户已存在!");
+        }
+
+
+
         $redata=$model->where($phone)->select();
         if($redata){
-            $this->error("用户已存在，<a href='Index.php/Home/Index/index'>请登录</a>");
-        }else{
-            $this->success("账号可以注册");
+           return $this->error("用户已存在，<a href='Index.php/Home/Index/index'>请登录</a>");
         }
+
+
+        return  $this->success("账号可以注册");
        
     }
     function zhuce(){
@@ -179,7 +191,7 @@ class RegisterController extends HomeController {
             $UserModel_o = new \Otc\Model\UserModel();
             $back = $UserModel_o->setUser($username);
             if ($back){
-                return $this->error("用户已存在!");
+                return $this->error("用户已存在");
             }
 
             $redata=$model->where($phone)->select();

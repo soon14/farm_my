@@ -61,16 +61,6 @@ return array(
     'into'=>63,  //转入
     'balance'=>1, //cmc余额
 
-    /* otc 数据库配置*/
-    'OTC_CB'=>[
-        'db_type'  => 'mysql',
-        'db_user'  => 'root',
-        'db_pwd'   => 'root',
-        'db_host'  => '127.0.0.1',
-        'db_port'  => '3306',
-        'db_name'  => 'otc',
-        'db_charset' =>    'utf8',
-        'db_prefix' => 'tw_',
-    ]
+
 
 );

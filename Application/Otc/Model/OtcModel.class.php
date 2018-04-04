@@ -11,8 +11,11 @@
  * Class OtcModel
  */
 namespace Otc\Model;
-class OtcModel extends \Think\Model
+use Think\Model;
+
+class OtcModel extends Model
 {
+
     protected $tablePrefix = 'tw_';
     protected $connection = [
         'db_type'  => 'mysql',
@@ -23,5 +26,6 @@ class OtcModel extends \Think\Model
         'db_name'  => 'otc',
         'db_charset' => 'utf8',
     ];
+
 
 }
