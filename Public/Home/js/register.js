@@ -24,7 +24,7 @@ function formChange(element,selTitle,ChaTitle,chaDiv) {
             break;
     }
 }
-var phone=1;
+var phone=0;
 var oldpwd=0;
 var newpwd=0;
 var olddeal=0;
@@ -266,7 +266,7 @@ function Regemail() {
 function Regphone(ss) {
     var pattern = /^1(3|4|5|7|8)\d{9}$/;
     if($(ss).val() != "" && $(ss).val() != null){
-        if(pattern.test($(ss).val())){
+//      if(pattern.test($(ss).val())){
             $(ss).parent().find("span.red_tips").hide();
             $(ss).parent().find("span.green_tips").show();
             $.ajax({
@@ -283,12 +283,13 @@ function Regphone(ss) {
                     phone=1
                 }
             });
-        }else{
-     /*       set_poput_yanzhen("手机号不正确，必须11位手机格式数字",false);*/
-            $(ss).parent().find("span.red_tips").show();
-            $(ss).parent().find("span.green_tips").hide();
-            return false;
-        }
+//      }
+//      else{
+//   /*       set_poput_yanzhen("手机号不正确，必须11位手机格式数字",false);*/
+//          $(ss).parent().find("span.red_tips").show();
+//          $(ss).parent().find("span.green_tips").hide();
+//          return false;
+//      }
     }
 }
 
