@@ -176,6 +176,12 @@ class RegisterController extends HomeController {
         }
         if($username!="" && $username!=null && $email_name=="" && $email_name==null){
             $phone['users']=$username;
+            $UserModel_o = new \Otc\Model\UserModel();
+            $back = $UserModel_o->setUser($username);
+            if ($back){
+                return $this->error("用户已存在!");
+            }
+
             $redata=$model->where($phone)->select();
             if($redata){
                return $this->error("用户已存在，请登录");

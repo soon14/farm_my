@@ -39,16 +39,12 @@ return array(
 
     /* 数据库配置 */
 
-
-
    'DB_TYPE'   => 'mysqli', // 数据库类型
    'DB_HOST'   => '192.168.102.100', // 服务器地址
    'DB_NAME'   => 'farm', // 数据库名
    'DB_USER'   => 'u', // 用户名
     'DB_PWD'    => 'ws',  // 密码
    'DB_PORT'   => '3306', // 端口
-
-
 
     'DB_PREFIX' => 'currency_', // 数据库表前缀
 
@@ -65,5 +61,16 @@ return array(
     'into'=>63,  //转入
     'balance'=>1, //cmc余额
 
+    /* otc 数据库配置*/
+    'OTC_CB'=>[
+        'db_type'  => 'mysql',
+        'db_user'  => 'root',
+        'db_pwd'   => 'root',
+        'db_host'  => '127.0.0.1',
+        'db_port'  => '3306',
+        'db_name'  => 'otc',
+        'db_charset' =>    'utf8',
+        'db_prefix' => 'tw_',
+    ]
 
 );
