@@ -22,7 +22,6 @@ class ShiftController extends HomeController
      */
 
     function index(){
-
         $UserpropertyModel =  new UserpropertyModel();
         $user_property = $UserpropertyModel->where(['id'=>session('user.id')])->find();
         if ($user_property['cny']<=0){

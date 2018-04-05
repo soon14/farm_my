@@ -70,18 +70,15 @@
 					<div>
 						<strong>转入资产账户：</strong>
 						<foreach name="xnb_data" item="vo" >
-							<if condition="(($vo['xnb_id'] neq 1) and ($vo['xnb_id'] neq 2)) and ($vo['xnb_id'] neq 3) and ($vo['xnb_id'] neq NULL) ">
+								<eq name="vo.xnb_brief" value="cmc">
 								<span class="money">{:floatval($vo['property']+$vo['property_clos']+$vo['memory'])} CMC1</span>(折合人民币<span class="money">￥{:floatval($vo['allproperty'])}</span>)
-							</if>
+								</eq>
 						</foreach>
 					</div>
 					<br>
 					<div>
-
 						<strong>余额账户：</strong>
 						<foreach name="xnb_data" item="vo">
-
-
 									<eq name="vo.xnb_brief" value="cny">
 										<span class="money">
 										{:round($vo['allproperty']/$cmcprice,2)}&nbsp;CMC1
