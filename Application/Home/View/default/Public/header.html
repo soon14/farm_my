@@ -98,8 +98,13 @@
 		<p>转移资产到OTC平台</p>
 	</div>
 	<div class="showBtn">
-		<a href="{:U('Property/assetTransfer?tag=13')}"><button class="showBtn1">转移</button></a>
-		<a href="{:U('Trade/buy')}"><button class="showBtn2">跳过</button></a>
+		<div class="showBtnBox1">
+			<a href="{:U('Shift/index')}" class="showBtnA1"><button onclick="tiaozhuan()" class="showBtn1">转移</button></a>
+		</div>
+		<div class="showBtnBox2">
+			<a href="{:U('Trade/buy')}"><button  class="showBtn2">跳过</button></a>
+		</div>
+		
 	</div>
 </div>
 
@@ -197,6 +202,21 @@
         })
         return false
     })
+     $('.showBtnBox1').click(function () {
+        $.ajax({
+            url:"{:U('Shift/index')}",
+            type:"get",
+            success:function(data) {
+                var href=$('.showBtnA1').attr('href');
+                if(data!=true){
+                    lock();
+                    return false
+                }
+                location.href=href
+            }
+        })
+        return false
+    })
 
 
     $("#remembers_password").click(function () {
@@ -221,12 +241,12 @@
 </script>
 <script>
 	function showService(){
-			var openUrl = "{:U('Communication/customer')}";//弹出窗口的url
-			var iWidth=620; //弹出窗口的宽度;
-			var iHeight=600; //弹出窗口的高度;
-			var iTop = (window.screen.availHeight-30-iHeight)/2; //获得窗口的垂直位置;
-			var iLeft = (window.screen.availWidth-10-iWidth)/2; //获得窗口的水平位置;
-			window.open(openUrl,"","height="+iHeight+", width="+iWidth+", top="+iTop+", left="+iLeft); 
+		var openUrl = "{:U('Communication/customer')}";//弹出窗口的url
+		var iWidth=620; //弹出窗口的宽度;
+		var iHeight=600; //弹出窗口的高度;
+		var iTop = (window.screen.availHeight-30-iHeight)/2; //获得窗口的垂直位置;
+		var iLeft = (window.screen.availWidth-10-iWidth)/2; //获得窗口的水平位置;
+		window.open(openUrl,"","height="+iHeight+", width="+iWidth+", top="+iTop+", left="+iLeft); 
 	}
 </script>
 
