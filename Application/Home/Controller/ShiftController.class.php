@@ -17,6 +17,18 @@ use Think\Exception;
 
 class ShiftController extends HomeController
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        if (!session('user.id')){
+            $this->error('请登录');
+            exit();
+        }
+
+    }
+
     /**
      * 资产转移发放
      */

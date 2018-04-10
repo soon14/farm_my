@@ -61,7 +61,7 @@
             	<ul class="turnUl">
             		<li>
             			<p>可用金额<span>*</span></p>
-            			<input type="text" id="money"  value="{$money.repeat_money}" disabled="disabled" style="color: red"/>
+            			<input type="text" id="money"  value="{:floatval($money['cny'])}" disabled="disabled" style="color: red"/>
             		</li>
                     <li>
             			<p>接收人账户<span>*</span></p>

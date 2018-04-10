@@ -1558,7 +1558,7 @@ class PropertyController extends HomeController {
 
     function transfer_accounts(){
 
-        $money  = M('userproperty')->field('cny')->where(['userid'=>session('user.id')])->find();
+        $money  = M('userproperty')->field('cny,repeat_money')->where(['userid'=>session('user.id')])->find();
         if (IS_POST){
             $user = I('user');
             $number = I('number');

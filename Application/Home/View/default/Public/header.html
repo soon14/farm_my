@@ -207,12 +207,11 @@
             url:"{:U('Shift/index')}",
             type:"get",
             success:function(data) {
-                var href=$('.showBtnA1').attr('href');
-                if(data!=true){
-                    lock();
+                if (data.status!=true){   //请求失败
+                    set_poput_code(data.info,false);
                     return false
                 }
-                location.href=href
+                set_poput_code(data.info,true);
             }
         })
         return false
