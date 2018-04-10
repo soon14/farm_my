@@ -49,8 +49,10 @@
 
 				<div class="finance-mark">
 					<div class="total-assets">
-						<strong>您的总资产：</strong><span class="money">{:round($xnb_data['allpropertys']/$cmcprice,2)}&nbsp;CMC1</span>
-						<span class="">（折合人民币 <span class="money">￥{$xnb_data['allpropertys']}</span>）</span>
+						<!--<strong>您的总资产：</strong><span class="money">{:round($xnb_data['allpropertys']/$cmcprice,2)}&nbsp;CMC1</span>
+						<span class="">（折合人民币 <span class="money">￥{$xnb_data['allpropertys']}</span>）</span>-->
+						<strong>您的总资产：</strong><span class="money">{$xnb_data['allpropertys']}&nbsp;CMC1</span>
+						<span class="">（折合人民币 <span class="money">￥{:round($xnb_data['allpropertys']*$cmcprice,2)}</span>）</span>
 						<span id="info_question">
 							<!--<img src="__IMG__/finance_images/icon_wen.png" alt="图标">-->
 							<em>
@@ -80,10 +82,15 @@
 						<strong>余额账户：</strong>
 						<foreach name="xnb_data" item="vo">
 									<eq name="vo.xnb_brief" value="cny">
-										<span class="money">
+										<!--<span class="money">
 										{:round($vo['allproperty']/$cmcprice,2)}&nbsp;CMC1
 										</span>
-										(折合人民币<span class="money">￥{$vo.allproperty}</span>)
+										(折合人民币<span class="money">￥{$vo.allproperty}</span>)-->
+										<span class="money">
+										{$vo.allproperty}&nbsp;CMC1
+										</span>
+										(折合人民币<span class="money">￥{:round($vo['allproperty']/$cmcprice,2)}</span>)
+										<span style="color: red;"><a style="color: red;" href="{:U('Shift/index')}" onclick="tiaozhuan()" class="showBtnBoxOne">&nbsp;&nbsp;&nbsp;&nbsp;转到交易市场</a></span>
 									</eq>
 						</foreach>
 					</div>
@@ -220,6 +227,21 @@
 			$('#record_grey').append(li);
 			$('#record_grey').css('display','block');
 		})
+		
+		$('.showBtnBoxOne').click(function () {
+        $.ajax({
+            url:"{:U('Shift/index')}",
+            type:"get",
+            success:function(data) {
+                if (data.status!=true){   //请求失败
+                    set_poput_code(data.info,false);
+                    return false
+                }
+                set_poput_code(data.info,true);
+            }
+        })
+        return false
+    })
 	</script>
 
 	</body>
